@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+
+{% block title %}Randevular - Dr. Yaprak Asla{% endblock %}
+
+{% block content %}
+<div class="appointments-container">
+    <h1>Randevular</h1>
+    
+    <div id="appointments-list" class="appointments-list">
+        <!-- Randevular buraya dinamik olarak eklenecek -->
+    </div>
+</div>
+
+<script>
+// Firebase Realtime Database referansı
+const appointmentsRef = firebase.database().ref('appointments');
+
+// Randevuları yükle
+function loadAppointments() {
+    const appointmentsList = document.getElementById('appointments-list');
+    appointmentsList.innerHTML = '<div class="loading">Yükleniyor...</div>';
+
+    // Kullanıcının randevularını dinle
+    appointmentsRef.orderByChild('doctorId').equalTo(firebase.auth().currentUser.uid)
+        .on('value', (snapshot) => {
+            const appointments = [];
+            snapshot.forEach((childSnapshot) => {
+                const appointment = childSnapshot.val();
+                appointment.id = childSnapshot.key;
+                appointments.push(appointment);
+            });
+
+            // Randevuları tarihe göre sırala
+            appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            if (appointments.length === 0) {
+                appointmentsList.innerHTML = '<div class="no-appointments">Henüz randevu bulunmuyor</div>';
+                return;
+            }
+
+            // Randevuları görüntüle
+            appointmentsList.innerHTML = appointments.map(appointment => `
+                <div class="appointment-card" data-id="${appointment.id}">
+                    <div class="appointment-header">
+                        <div class="patient-info">
+                            <i class="fas fa-user-circle"></i>
+                            <div>
+                                <h3>${appointment.patientName}</h3>
+                                <p>${appointment.patientPhone}</p>
+                            </div>
+                        </div>
+                        <span class="status-badge ${appointment.status}">
+                            ${appointment.status === 'completed' ? 'Tamamlandı' : 'Bekliyor'}
+                        </span>
+                    </div>
+                    
+                    <div class="appointment-details">
+                        <div class="detail-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>${appointment.date}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>${appointment.time}</span>
+                        </div>
+                    </div>
+
+                    ${appointment.photos && appointment.photos.length > 0 ? `
+                        <div class="appointment-photos">
+                            <button class="view-photos-btn" onclick="viewPhotos('${appointment.id}')">
+                                <i class="fas fa-images"></i>
+                                ${appointment.photos.length} Fotoğraf
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }, (error) => {
+            console.error('Randevular yüklenirken hata:', error);
+            appointmentsList.innerHTML = '<div class="error">Randevular yüklenirken bir hata oluştu</div>';
+        });
+}
+
+// Fotoğrafları görüntüle
+function viewPhotos(appointmentId) {
+    const modal = document.createElement('div');
+    modal.className = 'photo-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Randevu Fotoğrafları</h2>
+            <div class="photos-grid"></div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Fotoğrafları yükle
+    appointmentsRef.child(appointmentId).once('value')
+        .then((snapshot) => {
+            const appointment = snapshot.val();
+            const photosGrid = modal.querySelector('.photos-grid');
+            
+            if (appointment.photos && appointment.photos.length > 0) {
+                photosGrid.innerHTML = appointment.photos.map(photoUrl => `
+                    <div class="photo-item">
+                        <img src="${photoUrl}" alt="Randevu fotoğrafı">
+                    </div>
+                `).join('');
+            } else {
+                photosGrid.innerHTML = '<p>Bu randevuya ait fotoğraf bulunmuyor</p>';
+            }
+        });
+
+    // Modal kapatma işlemleri
+    modal.querySelector('.close-modal').onclick = () => modal.remove();
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+    };
+}
+
+// Sayfa yüklendiğinde randevuları yükle
+document.addEventListener('DOMContentLoaded', () => {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            loadAppointments();
+        } else {
+            window.location.href = '/login';
+        }
+    });
+});
+</script>
+
+<style>
+.appointments-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.appointments-list {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.appointment-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.patient-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.patient-info i {
+    font-size: 2rem;
+    color: #418CFF;
+}
+
+.patient-info h3 {
+    margin: 0;
+    color: #2C3E50;
+}
+
+.patient-info p {
+    margin: 0.25rem 0 0;
+    color: #7F8C8D;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-badge.pending {
+    background-color: #FFF3E0;
+    color: #F57C00;
+}
+
+.status-badge.completed {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.appointment-details {
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2C3E50;
+}
+
+.detail-item i {
+    color: #418CFF;
+}
+
+.appointment-photos {
+    margin-top: 1rem;
+}
+
+.view-photos-btn {
+    background: none;
+    border: none;
+    color: #418CFF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.view-photos-btn:hover {
+    background-color: #F5F9FF;
+}
+
+/* Modal Styles */
+.photo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #2C3E50;
+}
+
+.photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.photo-item {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.loading, .no-appointments, .error {
+    text-align: center;
+    padding: 2rem;
+    color: #2C3E50;
+    font-size: 1.1rem;
+}
+
+.error {
+    color: #E74C3C;
+}
+</style>
+{% endblock %} 

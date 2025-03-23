@@ -1,0 +1,647 @@
+{% extends "base.html" %}
+
+{% block title %}Randevu Al - Dr. Yağmur Aslan{% endblock %}
+
+{% block content %}
+<main>
+    <section class="appointment-section">
+        <div class="container">
+            <div class="appointment-content">
+                <a href="/" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Ana Sayfaya Dön</span>
+                </a>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="appointment-grid">
+                    <div class="calendar-section">
+                        <div class="calendar-header">
+                            <h2>Randevu Tarihi Seçin</h2>
+                            <div class="calendar-nav">
+                                <button id="prevMonth" class="calendar-nav-btn">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <span id="currentMonth">Mart 2024</span>
+                                <button id="nextMonth" class="calendar-nav-btn">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="calendar" id="calendar"></div>
+                        
+                        <div class="time-slots">
+                            <h3>Müsait Saatler</h3>
+                            <div class="time-grid" id="timeSlots"></div>
+                        </div>
+                    </div>
+
+                    <form method="POST" enctype="multipart/form-data" class="appointment-form">
+                        <div class="form-group">
+                            <label for="name">Ad Soyad</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">E-posta</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Telefon</label>
+                                <input type="tel" id="phone" name="phone" placeholder="05XX XXX XX XX" required>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="selectedDate" name="date">
+                        <input type="hidden" id="selectedTime" name="time">
+
+                        <div class="form-group">
+                            <label for="reason">Randevu Nedeni</label>
+                            <textarea id="reason" name="reason" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group upload-group">
+                            <label for="photo">
+                                <i class="fas fa-camera"></i>
+                                <span>Fotoğraf Ekle (Opsiyonel)</span>
+                            </label>
+                            <input type="file" id="photo" name="photo" accept="image/*">
+                        </div>
+
+                        <div class="upload-preview">
+                            <!-- Preview content will be dynamically added here -->
+                        </div>
+
+                        <div class="selected-file-name">
+                            <!-- Selected file name will be dynamically added here -->
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                            <span>Randevu Oluştur</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block styles %}
+<style>
+:root {
+    --primary: #2A9D8F;
+    --primary-light: #def2f1;
+    --primary-dark: #264653;
+    --accent: #E9C46A;
+    --accent-light: #F4E1B8;
+    --text: #2C3E50;
+    --text-light: #6c757d;
+    --background: #f8f9fa;
+    --success: #40916c;
+    --error: #e63946;
+    --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.appointment-section {
+    padding: 2rem 0;
+    background: linear-gradient(135deg, var(--primary-light) 0%, white 100%);
+    min-height: calc(100vh - 60px);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.appointment-content {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    border: 1px solid rgba(42, 157, 143, 0.1);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    transform: translateX(-3px);
+}
+
+.back-link i {
+    transition: transform 0.3s ease;
+}
+
+.back-link:hover i {
+    transform: translateX(-3px);
+}
+
+.appointment-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.calendar-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(42, 157, 143, 0.08);
+    border: 1px solid rgba(42, 157, 143, 0.1);
+}
+
+.calendar-header {
+    margin-bottom: 1.5rem;
+}
+
+.calendar-header h2 {
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.calendar-nav-btn {
+    background: var(--primary-light);
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 0.6rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-nav-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+#currentMonth {
+    font-weight: 600;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: white;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.calendar-day:hover:not(.disabled) {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.15);
+}
+
+.calendar-day.selected {
+    background: var(--gradient);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.2);
+}
+
+.calendar-day.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    background: #f5f5f5;
+}
+
+.calendar-day.today {
+    border: 2px solid var(--primary);
+    font-weight: 600;
+}
+
+.calendar-day.day-name {
+    font-weight: 600;
+    color: var(--primary-dark);
+    font-size: 0.9rem;
+    cursor: default;
+    background: transparent;
+}
+
+.time-slots {
+    margin-top: 1.5rem;
+}
+
+.time-slots h3 {
+    font-size: 1.2rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.time-slot {
+    padding: 0.8rem;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text);
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.time-slot:hover:not(.disabled) {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.15);
+}
+
+.time-slot.selected {
+    background: var(--gradient);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.2);
+}
+
+.time-slot.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    background: #f5f5f5;
+}
+
+.appointment-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(42, 157, 143, 0.1);
+    box-shadow: 0 4px 20px rgba(42, 157, 143, 0.08);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary-dark);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: var(--background);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.1);
+    background: white;
+}
+
+.upload-group {
+    margin-bottom: 1.5rem;
+}
+
+.upload-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: var(--primary-light);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    border: 2px dashed var(--primary);
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+}
+
+.upload-group input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.upload-preview {
+    display: none;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.upload-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selected-file-name {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:not(:disabled) {
+    background: var(--gradient);
+}
+
+.submit-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+}
+
+.submit-btn:disabled {
+    background: linear-gradient(135deg, #ccc 0%, #999 100%);
+    cursor: not-allowed;
+}
+
+.submit-btn i {
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:not(:disabled):hover i {
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .appointment-content {
+        padding: 1.5rem;
+    }
+
+    .calendar-section,
+    .appointment-form {
+        padding: 1.5rem;
+    }
+
+    .calendar-header h2,
+    .time-slots h3 {
+        font-size: 1.2rem;
+    }
+
+    .time-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .calendar-day,
+    .time-slot {
+        font-size: 0.9rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calendar = document.getElementById('calendar');
+    const timeSlots = document.getElementById('timeSlots');
+    const currentMonthEl = document.getElementById('currentMonth');
+    const submitBtn = document.getElementById('submitBtn');
+    const selectedDateInput = document.getElementById('selectedDate');
+    const selectedTimeInput = document.getElementById('selectedTime');
+
+    let currentDate = new Date();
+    let selectedDate = null;
+    let selectedTimeSlot = null;
+
+    // Takvimi oluştur
+    function renderCalendar() {
+        calendar.innerHTML = '';
+        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        
+        // Ay adını güncelle
+        const monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 
+                          'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+        currentMonthEl.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+        // Haftanın günleri
+        const dayNames = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+        dayNames.forEach(day => {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'calendar-day day-name';
+            dayEl.textContent = day;
+            calendar.appendChild(dayEl);
+        });
+
+        // Boş günleri ekle
+        let firstDayIndex = firstDay.getDay() - 1;
+        if (firstDayIndex === -1) firstDayIndex = 6;
+        for (let i = 0; i < firstDayIndex; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'calendar-day disabled';
+            calendar.appendChild(emptyDay);
+        }
+
+        // Günleri ekle
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'calendar-day';
+            dayEl.textContent = day;
+
+            const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+            const today = new Date();
+
+            if (currentDay.toDateString() === today.toDateString()) {
+                dayEl.classList.add('today');
+            }
+
+            if (currentDay < today || currentDay.getDay() === 0) {
+                dayEl.classList.add('disabled');
+            } else {
+                dayEl.addEventListener('click', () => selectDate(currentDay, dayEl));
+            }
+
+            calendar.appendChild(dayEl);
+        }
+    }
+
+    // Saat dilimlerini oluştur
+    function renderTimeSlots(date) {
+        timeSlots.innerHTML = '';
+        const hours = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', 
+                      '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'];
+
+        hours.forEach(time => {
+            const timeEl = document.createElement('div');
+            timeEl.className = 'time-slot';
+            timeEl.textContent = time;
+
+            // Rastgele bazı saatleri dolu göster
+            if (Math.random() > 0.7) {
+                timeEl.classList.add('disabled');
+            } else {
+                timeEl.addEventListener('click', () => selectTime(time, timeEl));
+            }
+
+            timeSlots.appendChild(timeEl);
+        });
+    }
+
+    // Tarih seçimi
+    function selectDate(date, element) {
+        const allDays = document.querySelectorAll('.calendar-day');
+        allDays.forEach(day => day.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedDate = date;
+        selectedDateInput.value = date.toISOString().split('T')[0];
+        renderTimeSlots(date);
+        checkFormValidity();
+    }
+
+    // Saat seçimi
+    function selectTime(time, element) {
+        const allTimes = document.querySelectorAll('.time-slot');
+        allTimes.forEach(slot => slot.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedTimeSlot = time;
+        selectedTimeInput.value = time;
+        checkFormValidity();
+    }
+
+    // Form kontrolü
+    function checkFormValidity() {
+        submitBtn.disabled = !(selectedDate && selectedTimeSlot);
+    }
+
+    // Ay navigasyonu
+    document.getElementById('prevMonth').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    });
+
+    document.getElementById('nextMonth').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    });
+
+    // Dosya yükleme önizlemesi
+    const fileInput = document.getElementById('photo');
+    const uploadGroup = document.querySelector('.upload-group');
+    
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            // Dosya adını göster
+            let fileNameSpan = uploadGroup.querySelector('.selected-file-name');
+            if (!fileNameSpan) {
+                fileNameSpan = document.createElement('span');
+                fileNameSpan.className = 'selected-file-name';
+                uploadGroup.appendChild(fileNameSpan);
+            }
+            fileNameSpan.textContent = file.name;
+
+            // Eğer resim dosyasıysa önizleme göster
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    let previewDiv = uploadGroup.querySelector('.upload-preview');
+                    if (!previewDiv) {
+                        previewDiv = document.createElement('div');
+                        previewDiv.className = 'upload-preview';
+                        uploadGroup.appendChild(previewDiv);
+                    }
+                    previewDiv.style.display = 'block';
+                    previewDiv.innerHTML = `<img src="${e.target.result}" alt="Önizleme">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+
+    // Başlangıçta takvimi göster
+    renderCalendar();
+});
+</script>
+{% endblock %} 

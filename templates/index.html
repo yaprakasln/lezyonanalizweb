@@ -1,0 +1,1172 @@
+{% extends "base.html" %}
+
+{% block title %}Dr. Yağmur Aslan - Dermatoloji Uzmanı{% endblock %}
+
+{% block content %}
+<header>
+    <nav class="main-nav">
+        <div class="container">
+            <a href="/" class="nav-brand">
+                <span class="doctor-title">Dr.</span>
+                <span class="doctor-name">Yağmur Aslan</span>
+                <span class="doctor-specialty">Dermatoloji Uzmanı</span>
+            </a>
+            <div class="nav-menu">
+                <a href="#hakkimda">Hakkımda</a>
+                <a href="#dermatolojik-tedaviler">Hizmetler</a>
+                <a href="#iletisim">İletişim</a>
+                <a href="{{ url_for('randevu') }}" class="nav-btn">Randevu Al</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Cildinize Özel<br>Profesyonel Çözümler</h1>
+                    <div class="hero-buttons">
+                        <a href="#dermatolojik-tedaviler" class="primary-btn">Hizmetlerimiz</a>
+                        <a href="{{ url_for('randevu') }}" class="secondary-btn">Randevu Al</a>
+                    </div>
+                    <div class="hero-features">
+                        <div class="feature">
+                            <i class="fas fa-brain"></i>
+                            <span>Yapay Zeka<br>Destekli Analiz</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-hospital"></i>
+                            <span>Modern Klinik</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-user-check"></i>
+                            <span>Hasta Odaklı</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='images/ai-skin-analysis.jpg') }}" alt="Dermatoloji Kliniği">
+                    <div class="ai-nodes">
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ai-dermatology">
+        <div class="container">
+            <div class="ai-content">
+                <div class="ai-text">
+                    <h2>Yapay Zeka ile<br>İleri Dermatoloji</h2>
+                    <p class="ai-subtitle">Cildinizin sağlığı için en son teknoloji ve yapay zeka destekli analiz sistemleri</p>
+                    <ul class="ai-features">
+                        <li>
+                            <div class="ai-feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="ai-feature-text">
+                                <h4>Akıllı Cilt Analizi</h4>
+                                <p>Yapay zeka destekli detaylı cilt haritalaması ve analizi</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ai-feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="ai-feature-text">
+                                <h4>Gelişim Takibi</h4>
+                                <p>Tedavi sürecinin dijital takibi ve ilerleme analizi</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ai-feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="ai-feature-text">
+                                <h4>Erken Teşhis</h4>
+                                <p>Cilt kanseri ve problemlerinin erken tespiti</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dermatology-conditions" id="dermatolojik-tedaviler">
+        <div class="container">
+            <h2>Dermatolojik Tedaviler</h2>
+            <div class="conditions-grid">
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Akne ve Sivilce<br>Tedavisi</h3>
+                </div>
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-clinic-medical"></i>
+                    </div>
+                    <h3>Pigmentasyon<br>Tedavisi</h3>
+                </div>
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Botoks ve<br>Dolgu</h3>
+                </div>
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-hospital-user"></i>
+                    </div>
+                    <h3>Lazer<br>Epilasyon</h3>
+                </div>
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3>Medikal<br>Cilt Bakımı</h3>
+                </div>
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <h3>PRP<br>Tedavisi</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="hakkimda">
+        <div class="container">
+            <div class="about-content">
+                <h2>Hakkımızda</h2>
+                <div class="about-text">
+                    <h3>Dr. Yağmur - Dermatoloji Uzmanı</h3>
+                    <p class="about-intro">Cilt sağlığı ve güzelliği, sadece dış görünüşümüzü değil, iç sağlığımızı da yansıtır. Dr. Yağmur olarak, cilt problemleriyle ilgili kapsamlı çözümler sunarak, hastalarımıza yalnızca tedavi değil, güvenli ve rahat bir iyileşme süreci de sağlamayı amaçlıyoruz.</p>
+                    
+                    <div class="about-vision">
+                        <div class="vision-item">
+                            <h4>Misyonumuz</h4>
+                            <p>Her bireyin cilt sağlığını en üst seviyeye çıkarmak, sadece tedavi etmek değil, doğru bilgilendirme ile hastalarımızı bilinçlendirmek. Sağlıklı bir cilt, sağlıklı bir yaşamın anahtarıdır.</p>
+                        </div>
+                        <div class="vision-item">
+                            <h4>Vizyonumuz</h4>
+                            <p>Daha fazla insanın sağlıklı bir ciltle yaşamına devam etmesine katkı sağlamak ve dermatoloji alanında öncü olmak.</p>
+                        </div>
+                    </div>
+                    <div class="about-actions">
+                        <a href="#" class="review-btn" onclick="openReviewForm()">Değerlendirme Yap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="iletisim">
+        <div class="container">
+            <div class="contact-content">
+                <h2>İletişim</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Adres</h3>
+                        <p>İstanbul, Türkiye</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <h3>Telefon</h3>
+                        <p>+90 555 123 4567</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>E-posta</h3>
+                        <p>info@drasla.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block styles %}
+<style>
+:root {
+    --primary: #2A9D8F;
+    --primary-light: #def2f1;
+    --primary-dark: #264653;
+    --accent: #E9C46A;
+    --text: #2C3E50;
+    --text-light: #6c757d;
+    --background: #f8f9fa;
+}
+
+.main-nav {
+    background: white;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(42, 157, 143, 0.1);
+    box-shadow: 0 2px 15px rgba(42, 157, 143, 0.05);
+}
+
+.main-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    margin-right: 3rem;
+    transition: all 0.3s ease;
+}
+
+.nav-brand:hover {
+    transform: translateY(-2px);
+}
+
+.doctor-title {
+    color: var(--primary);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.doctor-name {
+    color: var(--text);
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.3rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.doctor-specialty {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-menu a:not(.nav-btn):hover {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.nav-btn {
+    background: var(--primary);
+    color: white !important;
+    padding: 0.8rem 1.8rem !important;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.15);
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(42, 157, 143, 0.2);
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 0.4fr 1.6fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.hero-text {
+    padding-right: 20px;
+    z-index: 2;
+}
+
+.hero-text h1 {
+    font-size: 2.6rem;
+    line-height: 1.2;
+    color: var(--primary-dark);
+    margin-bottom: 2rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.primary-btn, .secondary-btn {
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.2);
+}
+
+.secondary-btn {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(42, 157, 143, 0.2);
+}
+
+.hero-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--text);
+    padding: 0.8rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.feature:hover {
+    background: rgba(42, 157, 143, 0.05);
+}
+
+.feature i {
+    color: var(--primary);
+    font-size: 1.4rem;
+}
+
+.feature span {
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+.hero-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    max-width: 1400px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: -200px;
+    z-index: 1;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(42, 157, 143, 0.15);
+    object-fit: cover;
+    transform: scale(1.1);
+}
+
+.ai-nodes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.node {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    animation: pulse 2s infinite;
+}
+
+.node:nth-child(1) {
+    top: 30%;
+    left: 25%;
+    animation-delay: 0s;
+}
+
+.node:nth-child(2) {
+    top: 45%;
+    right: 30%;
+    animation-delay: 0.5s;
+}
+
+.node:nth-child(3) {
+    bottom: 35%;
+    left: 40%;
+    animation-delay: 1s;
+}
+
+.line {
+    position: absolute;
+    background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.2) 100%);
+    height: 1px;
+    width: 100px;
+    animation: glow 3s infinite;
+}
+
+.line:nth-child(4) {
+    top: 40%;
+    left: 20%;
+    transform: rotate(45deg);
+    animation-delay: 1.5s;
+}
+
+.line:nth-child(5) {
+    bottom: 35%;
+    right: 25%;
+    transform: rotate(-45deg);
+    animation-delay: 2s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.4;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes glow {
+    0% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
+
+.services-preview {
+    padding: 100px 0;
+    background: white;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.service-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(42, 157, 143, 0.1);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(42, 157, 143, 0.1);
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.service-icon i {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.service-card h3 {
+    color: var(--primary-dark);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* About Section Styles */
+.about-section {
+    padding: 100px 0;
+    background: white;
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content h2 {
+    font-size: 2.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 2rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.about-content h3 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.about-intro {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 3rem;
+}
+
+.about-vision {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.vision-item {
+    text-align: left;
+    padding: 2rem;
+    background: var(--background);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.vision-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.1);
+}
+
+.vision-item h4 {
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.vision-item p {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.about-actions {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.review-btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.2);
+}
+
+.review-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(42, 157, 143, 0.25);
+}
+
+@media (max-width: 768px) {
+    .about-vision {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .about-content h2 {
+        font-size: 2rem;
+    }
+
+    .about-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .about-intro {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+
+    .vision-item {
+        padding: 1.5rem;
+    }
+}
+
+.review-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.review-form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.review-form-container h3 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-dark);
+    font-family: 'Playfair Display', serif;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.rating-input {
+    margin-bottom: 1.5rem;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #FFD700;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.form-actions button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-actions button[type="submit"] {
+    background: var(--primary);
+    color: white;
+}
+
+.form-actions button[type="button"] {
+    background: #f1f1f1;
+    color: var(--text);
+}
+
+.form-actions button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ai-dermatology {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-light) 0%, white 100%);
+}
+
+.ai-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ai-text h2 {
+    font-size: 2.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.ai-subtitle {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+.ai-features {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.ai-features li {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.1);
+    transition: all 0.3s ease;
+}
+
+.ai-features li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(42, 157, 143, 0.15);
+}
+
+.ai-feature-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1.2rem;
+}
+
+.ai-feature-text h4 {
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.ai-feature-text p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Smooth Scroll ve Animasyonlar */
+html {
+    scroll-behavior: smooth;
+}
+
+.services-preview, .about-section, .ai-dermatology, .dermatology-conditions {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 1600px) {
+    .hero-image {
+        margin-right: -150px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .hero-image {
+        margin-right: -100px;
+        max-width: 1200px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hero-image {
+        margin-right: -50px;
+        max-width: 1000px;
+    }
+    
+    .hero-content {
+        grid-template-columns: 0.5fr 1.5fr;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-image {
+        margin-right: 0;
+        max-width: 100%;
+    }
+    
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .hero-text {
+        padding-right: 0;
+        order: 2;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-image {
+        order: 1;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-features {
+        justify-content: center;
+    }
+}
+
+/* Dermatolojik Hastalıklar Section */
+.dermatology-conditions {
+    padding: 100px 0;
+    background: linear-gradient(135deg, white 0%, var(--primary-light) 100%);
+}
+
+.dermatology-conditions h2 {
+    text-align: center;
+    font-size: 2.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 3rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.condition-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.1);
+    cursor: pointer;
+}
+
+.condition-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(42, 157, 143, 0.15);
+}
+
+.condition-icon {
+    width: 120px;
+    height: 120px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.condition-card:hover .condition-icon {
+    background: var(--primary);
+}
+
+.condition-icon i {
+    font-size: 3rem;
+    color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.condition-card:hover .condition-icon i {
+    color: white;
+}
+
+.condition-card h3 {
+    color: var(--primary-dark);
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+}
+
+@media (max-width: 1024px) {
+    .conditions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .conditions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+
+    .dermatology-conditions h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .condition-card {
+        padding: 1.5rem;
+    }
+
+    .condition-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .condition-card h3 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .conditions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--primary-light) 0%, white 100%);
+}
+
+.contact-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-content h2 {
+    font-size: 2.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 3rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.contact-item {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.1);
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(42, 157, 143, 0.15);
+}
+
+.contact-item i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.contact-item h3 {
+    color: var(--primary-dark);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.contact-item p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .contact-info {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .contact-content h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .contact-item {
+        padding: 2rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+<script>
+// Scroll Animasyonları
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.2
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('.services-preview, .about-section, .ai-dermatology, .dermatology-conditions');
+    sections.forEach(section => observer.observe(section));
+});
+
+function openReviewForm() {
+    const reviewForm = document.createElement('div');
+    reviewForm.className = 'review-form-overlay';
+    reviewForm.innerHTML = `
+        <div class="review-form-container">
+            <h3>Değerlendirmenizi Yazın</h3>
+            <form id="reviewForm" onsubmit="submitReview(event)">
+                <div class="rating-input">
+                    <label>Puanınız:</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
+                        <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
+                        <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
+                        <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
+                        <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reviewerName">İsminiz:</label>
+                    <input type="text" id="reviewerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="reviewText">Değerlendirmeniz:</label>
+                    <textarea id="reviewText" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="closeReviewForm()">İptal</button>
+                    <button type="submit">Gönder</button>
+                </div>
+            </form>
+        </div>
+    `;
+    document.body.appendChild(reviewForm);
+}
+
+function closeReviewForm() {
+    const overlay = document.querySelector('.review-form-overlay');
+    if (overlay) {
+        overlay.remove();
+    }
+}
+
+function submitReview(event) {
+    event.preventDefault();
+    const rating = document.querySelector('input[name="rating"]:checked')?.value;
+    const name = document.getElementById('reviewerName').value;
+    const text = document.getElementById('reviewText').value;
+
+    // Burada değerlendirmeyi backend'e gönderecek AJAX isteği yapılacak
+    // Örnek: fetch('/api/reviews', { method: 'POST', body: JSON.stringify({rating, name, text}) })
+
+    alert('Değerlendirmeniz için teşekkür ederiz!');
+    closeReviewForm();
+}
+</script>
+{% endblock %} 
