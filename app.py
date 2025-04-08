@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from firebase_admin import credentials, initialize_app, storage, firestore, db as admin_db
+from firebase_admin import credentials, initialize_app, firestore, db as admin_db
 import os
 from datetime import datetime
 from dotenv import load_dotenv
 import uuid
+import base64
 from werkzeug.utils import secure_filename
 import re
 
@@ -13,49 +14,39 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'dev-secret-key')
 
-# Firebase Admin SDK initialization
+# Firebase initialization
 try:
     cred = credentials.Certificate("serviceAccountKey.json")
-    firebase_admin = initialize_app(cred, {
-        'storageBucket': os.getenv('FIREBASE_STORAGE_BUCKET'),
+    firebase_app = initialize_app(cred, {
         'databaseURL': os.getenv('FIREBASE_DATABASE_URL')
     })
-    print("Firebase Admin SDK başarıyla başlatıldı")
+    db = firestore.client()
+    rtdb = admin_db.reference()
+    print("Firebase bağlantısı başarılı")
 except Exception as e:
-    print(f"Firebase Admin SDK başlatma hatası: {str(e)}")
-
-# Firebase configuration for client-side
-firebase_config = {
-    "apiKey": os.getenv('FIREBASE_API_KEY'),
-    "authDomain": os.getenv('FIREBASE_AUTH_DOMAIN'),
-    "projectId": os.getenv('FIREBASE_PROJECT_ID'),
-    "storageBucket": os.getenv('FIREBASE_STORAGE_BUCKET'),
-    "messagingSenderId": os.getenv('FIREBASE_MESSAGING_SENDER_ID'),
-    "appId": os.getenv('FIREBASE_APP_ID'),
-    "measurementId": os.getenv('FIREBASE_MEASUREMENT_ID'),
-    "databaseURL": os.getenv('FIREBASE_DATABASE_URL')
-}
-
-db = firestore.client()
-rtdb = admin_db.reference()
-bucket = storage.bucket()
+    print(f"Firebase bağlantı hatası: {str(e)}")
 
 @app.route('/')
 def home():
-    return render_template('index.html', firebase_config=firebase_config)
+    return render_template('index.html')
+
+@app.route('/hakkimizda')
+def about():
+    return render_template('hakkimizda.html')
+
+@app.route('/iletisim')
+def contact():
+    return render_template('iletisim.html')
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def validate_phone(phone):
-    phone = re.sub(r'[\s-]', '', phone)
-    if phone.startswith('+90'):
-        phone = phone[3:]
-    if phone.startswith('0'):
-        phone = phone[1:]
-    if re.match(r'^5[0-9]{9}$', phone):
-        return f"0{phone[:3]}-{phone[3:6]}-{phone[6:8]}-{phone[8:]}"
+    # Telefon numarası formatını düzenle
+    phone = re.sub(r'\D', '', phone)  # Sadece rakamları al
+    if len(phone) == 10:  # 5XX XXX XXXX formatı
+        return phone
     return None
 
 @app.route('/randevu', methods=['GET', 'POST'])
@@ -70,138 +61,93 @@ def randevu():
             time = request.form['time']
             reason = request.form['reason']
             
-            print(f"Form verileri alındı: {name}, {email}, {phone}, {date}, {time}, {reason}")
-            
-            # Telefon numarasını doğrula
+            # Telefon numarasını formatla
             formatted_phone = validate_phone(phone)
             if not formatted_phone:
-                flash('Geçersiz telefon numarası formatı. Lütfen geçerli bir telefon numarası girin.', 'error')
+                flash('Geçersiz telefon numarası formatı.', 'error')
                 return redirect(url_for('randevu'))
             
             # Benzersiz randevu ID'si oluştur
             appointment_id = str(uuid.uuid4())
-            print(f"Oluşturulan randevu ID: {appointment_id}")
             
-            # Randevu verilerini hazırla
+            # Fotoğraf işleme
+            photo_base64 = None
+            has_photos = False
+            
+            if 'photo' in request.files and request.files['photo'].filename:
+                photo = request.files['photo']
+                if not allowed_file(photo.filename):
+                    flash('Desteklenmeyen dosya formatı. Lütfen PNG, JPG, JPEG veya GIF formatında bir dosya yükleyin.', 'error')
+                    return redirect(url_for('randevu'))
+                
+                try:
+                    # Dosya içeriğini oku ve Base64'e çevir
+                    photo_content = photo.read()
+                    if len(photo_content) > 5 * 1024 * 1024:  # 5MB limit
+                        flash('Dosya boyutu çok büyük. Maksimum 5MB boyutunda dosya yükleyebilirsiniz.', 'error')
+                        return redirect(url_for('randevu'))
+                    
+                    photo_base64 = base64.b64encode(photo_content).decode('utf-8')
+                    has_photos = True
+                    print("Fotoğraf başarıyla Base64'e çevrildi")
+                    
+                except Exception as e:
+                    print(f"Fotoğraf işleme hatası: {str(e)}")
+                    flash('Fotoğraf işlenirken bir hata oluştu. Lütfen tekrar deneyin.', 'error')
+                    return redirect(url_for('randevu'))
+            
+            # Randevu verisi
+            current_timestamp = int(datetime.now().timestamp() * 1000)
             appointment_data = {
                 'id': appointment_id,
+                'appointmentDate': date,
+                'appointmentTime': time,
+                'hasPhotos': has_photos,
+                'status': 0,
+                'photos': [{
+                    'url': f"data:image/jpeg;base64,{photo_base64}",
+                    'uploadTime': current_timestamp
+                }] if has_photos else [],
+                'notes': reason,
                 'userName': name,
                 'userEmail': email,
                 'userPhone': formatted_phone,
-                'appointmentDate': date,
-                'appointmentTime': time,
-                'description': reason,
-                'status': 'pending',
-                'createdAt': int(datetime.now().timestamp()),
-                'type': 'web',
-                'notificationSent': False,
+                'timestamp': -current_timestamp,
+                'createdAt': -current_timestamp,
                 'doctorId': 'default_doctor',
                 'doctorName': 'Dr. Yağmur Aslan',
-                'photoUrl': None
+                'type': 'web',
+                'photoUrl': f"data:image/jpeg;base64,{photo_base64}" if has_photos else ""
             }
             
-            print(f"Hazırlanan randevu verisi: {appointment_data}")
-            
-            # Fotoğraf yükleme
-            if 'photo' in request.files:
-                photo = request.files['photo']
-                if photo and allowed_file(photo.filename):
-                    filename = secure_filename(photo.filename)
-                    unique_filename = f"{appointment_id}_{filename}"
-                    
-                    try:
-                        # Firebase Storage'a yükle
-                        blob = bucket.blob(f"patient_photos/{unique_filename}")
-                        blob.upload_from_string(
-                            photo.read(),
-                            content_type=photo.content_type
-                        )
-                        
-                        # Public URL al
-                        blob.make_public()
-                        appointment_data['photoUrl'] = blob.public_url
-                        print(f"Fotoğraf yüklendi: {appointment_data['photoUrl']}")
-                    except Exception as e:
-                        print(f"Fotoğraf yükleme hatası: {str(e)}")
-            
             try:
-                # Firestore'a kaydet
-                db.collection('appointments').document(appointment_id).set(appointment_data)
-                print("Firestore'a kaydedildi")
-                
-                # Realtime Database için veriyi düzenle
-                rtdb_appointment_data = {
-                    'id': appointment_id,
-                    'patient': {
-                        'name': name,
-                        'email': email,
-                        'phone': formatted_phone
-                    },
-                    'appointment': {
-                        'date': date,
-                        'time': time,
-                        'description': reason,
-                        'status': 'pending',
-                        'type': 'web'
-                    },
-                    'photos': {
-                        'urls': [appointment_data['photoUrl']] if appointment_data['photoUrl'] else []
-                    },
-                    'metadata': {
-                        'createdAt': int(datetime.now().timestamp()),
-                        'notificationSent': False,
-                        'doctorId': 'default_doctor',
-                        'doctorName': 'Dr. Yağmur Aslan'
-                    }
-                }
-                
                 # Realtime Database'e kaydet
-                rtdb.child('appointments').child(appointment_id).set(rtdb_appointment_data)
-                print("Realtime Database'e kaydedildi")
+                rtdb.child('appointments').child(appointment_id).set(appointment_data)
                 
-                # Doktorun randevu listesine ekle
-                rtdb.child('doctorAppointments').child('default_doctor').child(appointment_id).set({
-                    'appointmentId': appointment_id,
-                    'patientName': name,
-                    'date': date,
-                    'time': time,
-                    'status': 'pending',
-                    'hasPhotos': bool(appointment_data['photoUrl'])
-                })
-                print("Doktor randevu listesine eklendi")
+                # patientAppointments altına kaydet
+                patient_email_key = email.replace('@', '_').replace('.', '_')
+                rtdb.child('patientAppointments').child(patient_email_key).child(appointment_id).set(appointment_data)
                 
-                # Hastanın randevu listesine ekle
-                sanitized_email = email.replace('.', '_').replace('@', '_at_')
-                rtdb.child('patientAppointments').child(sanitized_email).child(appointment_id).set({
-                    'appointmentId': appointment_id,
-                    'date': date,
-                    'time': time,
-                    'status': 'pending',
-                    'hasPhotos': bool(appointment_data['photoUrl'])
-                })
-                print("Hasta randevu listesine eklendi")
+                # userAppointments altına kaydet
+                rtdb.child('userAppointments').child('default_doctor').child(appointment_id).set(appointment_data)
                 
-                # Randevuları kontrol et
-                try:
-                    appointments_ref = rtdb.child('appointments').get()
-                    print("Mevcut randevular:", appointments_ref)
-                except Exception as e:
-                    print(f"Randevuları kontrol etme hatası: {str(e)}")
+                print(f"Randevu başarıyla kaydedildi: {appointment_id}")
+                print(f"Fotoğraf durumu: hasPhotos={has_photos}")
                 
-                flash('Randevunuz başarıyla oluşturuldu. En kısa sürede sizinle iletişime geçeceğiz.', 'success')
+                flash('Randevunuz başarıyla oluşturuldu.', 'success')
                 return redirect(url_for('randevu'))
                 
-            except Exception as e:
-                print(f"Firebase kaydetme hatası: {str(e)}")
-                flash('Randevu kaydedilirken bir hata oluştu. Lütfen tekrar deneyin.', 'error')
+            except Exception as db_error:
+                print(f"Veritabanı hatası: {str(db_error)}")
+                flash('Randevu kaydedilirken bir hata oluştu.', 'error')
                 return redirect(url_for('randevu'))
             
         except Exception as e:
             print(f"Genel hata: {str(e)}")
-            flash('Randevu oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.', 'error')
+            flash('Randevu oluşturulurken bir hata oluştu.', 'error')
             return redirect(url_for('randevu'))
     
-    return render_template('randevu.html', firebase_config=firebase_config)
+    return render_template('randevu.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001) 

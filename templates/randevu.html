@@ -11,17 +11,18 @@
                     <i class="fas fa-arrow-left"></i>
                     <span>Ana Sayfaya Dön</span>
                 </a>
-                
+
+                <h1>Randevu Al</h1>
+                <p>Randevu almak için aşağıdaki formu doldurunuz.</p>
+
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         {% for category, message in messages %}
-                            <div class="alert alert-{{ category }}">
-                                {{ message }}
-                            </div>
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
-
+                
                 <div class="appointment-grid">
                     <div class="calendar-section">
                         <div class="calendar-header">
@@ -45,17 +46,17 @@
                     </div>
 
                     <form method="POST" enctype="multipart/form-data" class="appointment-form">
-                        <div class="form-group">
-                            <label for="name">Ad Soyad</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-
                         <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Ad Soyad</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
                             <div class="form-group">
                                 <label for="email">E-posta</label>
                                 <input type="email" id="email" name="email" required>
                             </div>
-
+                            
                             <div class="form-group">
                                 <label for="phone">Telefon</label>
                                 <input type="tel" id="phone" name="phone" placeholder="05XX XXX XX XX" required>
@@ -64,28 +65,52 @@
 
                         <input type="hidden" id="selectedDate" name="date">
                         <input type="hidden" id="selectedTime" name="time">
-
+                        
                         <div class="form-group">
                             <label for="reason">Randevu Nedeni</label>
                             <textarea id="reason" name="reason" rows="3" required></textarea>
                         </div>
-
+                        
                         <div class="form-group upload-group">
                             <label for="photo">
                                 <i class="fas fa-camera"></i>
                                 <span>Fotoğraf Ekle (Opsiyonel)</span>
+                                <small>Desteklenen formatlar: PNG, JPG, JPEG, GIF (Maks. 5MB)</small>
                             </label>
-                            <input type="file" id="photo" name="photo" accept="image/*">
+                            <input type="file" id="photo" name="photo" accept="image/png,image/jpeg,image/jpg,image/gif" onchange="validateFileSize(this)">
                         </div>
-
+                        
                         <div class="upload-preview">
                             <!-- Preview content will be dynamically added here -->
                         </div>
-
+                        
                         <div class="selected-file-name">
                             <!-- Selected file name will be dynamically added here -->
                         </div>
 
+                        <script>
+                        function validateFileSize(input) {
+                            if (input.files && input.files[0]) {
+                                if (input.files[0].size > 5 * 1024 * 1024) {
+                                    alert('Dosya boyutu çok büyük! Maksimum 5MB yükleyebilirsiniz.');
+                                    input.value = '';
+                                    return;
+                                }
+                                
+                                // Dosya önizleme
+                                var reader = new FileReader();
+                                reader.onload = function(e) {
+                                    var preview = document.querySelector('.upload-preview');
+                                    preview.innerHTML = `<img src="${e.target.result}" alt="Fotoğraf önizleme">`;
+                                    
+                                    var fileName = document.querySelector('.selected-file-name');
+                                    fileName.textContent = input.files[0].name;
+                                }
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                        </script>
+                        
                         <button type="submit" class="submit-btn" id="submitBtn" disabled>
                             <span>Randevu Oluştur</span>
                             <i class="fas fa-arrow-right"></i>
@@ -575,7 +600,13 @@ document.addEventListener('DOMContentLoaded', function() {
         allDays.forEach(day => day.classList.remove('selected'));
         element.classList.add('selected');
         selectedDate = date;
-        selectedDateInput.value = date.toISOString().split('T')[0];
+        
+        // Tarihi YYYY-MM-DD formatında kaydet
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        selectedDateInput.value = `${year}-${month}-${day}`;
+        
         renderTimeSlots(date);
         checkFormValidity();
     }
@@ -586,7 +617,10 @@ document.addEventListener('DOMContentLoaded', function() {
         allTimes.forEach(slot => slot.classList.remove('selected'));
         element.classList.add('selected');
         selectedTimeSlot = time;
-        selectedTimeInput.value = time;
+        
+        // Saati HH:mm formatında kaydet
+        selectedTimeInput.value = time.padStart(5, '0');
+        
         checkFormValidity();
     }
 

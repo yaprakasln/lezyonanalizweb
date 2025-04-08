@@ -7,17 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
-    
-    <!-- Firebase Yapılandırması -->
-    <script>
-        const firebaseConfig = {{ firebase_config|tojson|safe }};
-        firebase.initializeApp(firebaseConfig);
-    </script>
-    
     <style>
         * {
             margin: 0;
