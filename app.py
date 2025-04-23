@@ -104,10 +104,7 @@ def randevu():
                 'appointmentTime': time,
                 'hasPhotos': has_photos,
                 'status': 0,
-                'photos': [{
-                    'url': f"data:image/jpeg;base64,{photo_base64}",
-                    'uploadTime': current_timestamp
-                }] if has_photos else [],
+                'photos': [photo_base64] if has_photos else [],  # Store raw base64 without prefix
                 'notes': reason,
                 'userName': name,
                 'userEmail': email,
@@ -117,7 +114,7 @@ def randevu():
                 'doctorId': 'default_doctor',
                 'doctorName': 'Dr. Yağmur Aslan',
                 'type': 'web',
-                'photoUrl': f"data:image/jpeg;base64,{photo_base64}" if has_photos else ""
+                'photoUrl': photo_base64 if has_photos else ""  # Store raw base64 without prefix
             }
             
             try:
