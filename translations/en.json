@@ -1,0 +1,83 @@
+{
+    "menu": {
+        "home": "Home",
+        "about": "About",
+        "services": "Services",
+        "contact": "Contact",
+        "appointment": "Book Appointment"
+    },
+    "hero": {
+        "title": "Dr. Yağmur Aslan",
+        "subtitle": "Dermatologist",
+        "cta_appointment": "Book Appointment",
+        "cta_services": "Our Services"
+    },
+    "services": {
+        "title": "Dermatological Treatments",
+        "acne": "Acne Treatment",
+        "pigmentation": "Pigmentation Treatment",
+        "botox": "Botox & Fillers",
+        "laser": "Laser Hair Removal",
+        "skincare": "Medical Skin Care",
+        "prp": "PRP Treatment"
+    },
+    "about": {
+        "title": "About Us",
+        "description": "We provide the highest quality dermatological treatment services with our expert staff.",
+        "mission": "Our Mission",
+        "mission_text": "To enhance our patients' quality of life by providing personalized skincare and treatment services using the latest technology and scientific approaches. We work to understand each patient's unique needs and deliver reliable and effective solutions.",
+        "vision": "Our Vision",
+        "vision_text": "To be a center that follows innovative approaches in dermatology, prioritizes patient satisfaction, and provides services at international standards. We aim to add value to both our patients and our profession through continuous development and education.",
+        "evaluations": "Testimonials",
+        "testimonials": [
+            {
+                "name": "Sarah M.",
+                "comment": "Thanks to Dr. Aslan's professional approach and attention during the treatment process, my skin problems were resolved.",
+                "rating": 5
+            },
+            {
+                "name": "John D.",
+                "comment": "Very satisfied with the modern clinic environment and expert staff. Highly recommended.",
+                "rating": 5
+            },
+            {
+                "name": "Emily R.",
+                "comment": "Thank you for the care and successful results in my acne treatment.",
+                "rating": 5
+            }
+        ]
+    },
+    "contact": {
+        "title": "Contact",
+        "address": "Address",
+        "phone": "Phone",
+        "email": "Email"
+    },
+    "appointment": {
+        "title": "Book Appointment",
+        "form": {
+            "name": "Full Name",
+            "email": "Email",
+            "phone": "Phone",
+            "date": "Date",
+            "time": "Time",
+            "reason": "Appointment Reason",
+            "photo": "Add Photo (Optional)",
+            "photo_help": "Supported formats: PNG, JPG, JPEG, GIF (Max. 5MB)",
+            "submit": "Book Appointment"
+        }
+    },
+    "footer": {
+        "rights": "All rights reserved.",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Use"
+    },
+    "messages": {
+        "appointment_success": "Your appointment has been successfully created.",
+        "invalid_phone": "Invalid phone number format.",
+        "file_too_large": "File size is too large. Maximum file size is 5MB.",
+        "invalid_file_format": "Unsupported file format. Please upload a PNG, JPG, JPEG, or GIF file.",
+        "db_error": "An error occurred while saving the appointment.",
+        "general_error": "An error occurred while creating the appointment."
+    }
+} 

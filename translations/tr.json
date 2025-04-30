@@ -1,0 +1,97 @@
+{
+    "menu": {
+        "home": "Ana Sayfa",
+        "about": "Hakkımızda",
+        "services": "Hizmetler",
+        "contact": "İletişim",
+        "appointment": "Randevu Al"
+    },
+    "hero": {
+        "title": "Dr. Yağmur Aslan",
+        "subtitle": "Dermatoloji Uzmanı",
+        "description": "Profesyonel dermatoloji hizmetleri ile cildinize özel çözümler sunuyoruz.",
+        "cta_appointment": "Randevu Al",
+        "cta_services": "Hizmetlerimiz"
+    },
+    "services": {
+        "title": "Hizmetlerimiz",
+        "subtitle": "Size sunduğumuz dermatolojik tedavi ve bakım hizmetleri",
+        "acne": "Akne Tedavisi",
+        "acne_desc": "Akne ve sivilce tedavisinde uzman kadromuzla yanınızdayız.",
+        "pigmentation": "Leke Tedavisi",
+        "pigmentation_desc": "Leke ve pigmentasyon tedavisinde etkili çözümler.",
+        "botox": "Botoks ve Dolgu",
+        "botox_desc": "Botoks ve dolgu uygulamalarında güvenilir hizmet.",
+        "laser": "Lazer Epilasyon",
+        "laser_desc": "Modern lazer teknolojisi ile epilasyon hizmeti.",
+        "skincare": "Cilt Bakımı",
+        "skincare_desc": "Profesyonel cilt bakımı ve tedavi hizmetleri.",
+        "prp": "PRP Tedavisi",
+        "prp_desc": "PRP tedavisi ile doğal gençleşme.",
+        "learn_more": "Detaylı Bilgi"
+    },
+    "about": {
+        "title": "Hakkımızda",
+        "subtitle": "Dr. Yağmur Aslan",
+        "description": "2010 yılından bu yana dermatoloji alanında hizmet vermekteyim. Hastalarımın cilt sağlığı ve güzelliği için en son teknolojileri ve tedavi yöntemlerini kullanıyorum.",
+        "mission": "Misyonumuz",
+        "mission_text": "Her hastamıza özel, bilimsel ve etik değerler ışığında en iyi dermatolojik tedaviyi sunmak.",
+        "vision": "Vizyonumuz",
+        "vision_text": "Dermatoloji alanında yenilikçi yaklaşımlar ve hasta memnuniyeti odaklı hizmet anlayışıyla öncü olmak.",
+        "evaluations": "Değerlendirmeler",
+        "testimonials": [
+            {
+                "name": "Ayşe Y.",
+                "comment": "Dr. Yağmur Hanım'ın profesyonel yaklaşımı ve tedavi sürecindeki ilgisi sayesinde cilt problemlerim çözüldü.",
+                "rating": 5
+            },
+            {
+                "name": "Mehmet K.",
+                "comment": "Modern klinik ortamı ve uzman kadrosuyla çok memnun kaldım. Kesinlikle tavsiye ediyorum.",
+                "rating": 5
+            },
+            {
+                "name": "Zeynep A.",
+                "comment": "Akne tedavimde gösterdiği özen ve başarılı sonuçlar için çok teşekkür ederim.",
+                "rating": 5
+            }
+        ]
+    },
+    "contact": {
+        "title": "İletişim",
+        "address": "Adres",
+        "phone": "Telefon",
+        "email": "E-posta",
+        "working_hours": "Çalışma Saatleri",
+        "weekdays": "Hafta içi: 09:00 - 18:00",
+        "saturday": "Cumartesi: 09:00 - 14:00",
+        "sunday": "Pazar: Kapalı"
+    },
+    "appointment": {
+        "title": "Randevu Al",
+        "form": {
+            "name": "Ad Soyad",
+            "email": "E-posta",
+            "phone": "Telefon",
+            "date": "Tarih",
+            "time": "Saat",
+            "reason": "Randevu Nedeni",
+            "photo": "Fotoğraf Ekle (Opsiyonel)",
+            "photo_help": "Desteklenen formatlar: PNG, JPG, JPEG, GIF (Maks. 5MB)",
+            "submit": "Randevu Oluştur"
+        }
+    },
+    "footer": {
+        "copyright": "© 2024 Dr. Yağmur Aslan. Tüm hakları saklıdır.",
+        "privacy": "Gizlilik Politikası",
+        "terms": "Kullanım Koşulları"
+    },
+    "messages": {
+        "appointment_success": "Randevunuz başarıyla oluşturuldu.",
+        "invalid_phone": "Geçersiz telefon numarası formatı.",
+        "file_too_large": "Dosya boyutu çok büyük. Maksimum 5MB boyutunda dosya yükleyebilirsiniz.",
+        "invalid_file_format": "Desteklenmeyen dosya formatı. Lütfen PNG, JPG, JPEG veya GIF formatında bir dosya yükleyin.",
+        "db_error": "Randevu kaydedilirken bir hata oluştu.",
+        "general_error": "Randevu oluşturulurken bir hata oluştu."
+    }
+} 

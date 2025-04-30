@@ -1,194 +1,243 @@
 {% extends "base.html" %}
 
-{% block title %}Dr. Yağmur Aslan - Dermatoloji Uzmanı{% endblock %}
+{% block title %}{{ t.menu.home }} - Dr. Yağmur Aslan{% endblock %}
 
 {% block content %}
-<header>
-    <nav class="main-nav">
-        <div class="container">
-            <a href="/" class="nav-brand">
-                <span class="doctor-title">Dr.</span>
-                <span class="doctor-name">Yağmur Aslan</span>
-                <span class="doctor-specialty">Dermatoloji Uzmanı</span>
+<header class="main-header">
+    <div class="nav-container">
+        <div class="logo">
+            <a href="/">
+                <span class="logo-text">Dr. Yağmur Aslan</span>
+                <span class="logo-subtitle">{{ t.hero.subtitle }}</span>
             </a>
-            <div class="nav-menu">
-                <a href="#hakkimda">Hakkımda</a>
-                <a href="#dermatolojik-tedaviler">Hizmetler</a>
-                <a href="#iletisim">İletişim</a>
-                <a href="{{ url_for('randevu') }}" class="nav-btn">Randevu Al</a>
-            </div>
         </div>
-    </nav>
+        <nav class="nav-links">
+            <a href="/" class="nav-link" data-translate="menu.home">Ana Sayfa</a>
+            <a href="#about" class="nav-link" data-translate="menu.about">Hakkımızda</a>
+            <a href="#services" class="nav-link" data-translate="menu.services">Hizmetler</a>
+            <a href="#contact" class="nav-link" data-translate="menu.contact">İletişim</a>
+            <a href="/randevu" class="nav-link btn-primary" data-translate="menu.appointment">Randevu Al</a>
+        </nav>
+        <div class="language-switcher">
+            <button onclick="changeLang('tr')" class="lang-btn" data-lang="tr">TR</button>
+            <button onclick="changeLang('en')" class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <button class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
 </header>
 
 <main>
-    <section class="hero-section">
-        <div class="container">
+    <section class="hero">
+        <div class="hexagon-grid">
+            {% for i in range(10) %}
+            <div class="hexagon" style="left: {{ range(0, 100)|random }}%; animation-delay: {{ range(0, 10)|random }}s;"></div>
+            {% endfor %}
+        </div>
+        
+        <div class="dna-animation">
+            {% for i in range(20) %}
+            <div class="dna-strand" style="top: {{ i * 20 }}px; animation-delay: {{ i * 0.2 }}s;"></div>
+            {% endfor %}
+        </div>
+        
+        <div class="pulse-rings">
+            {% for i in range(3) %}
+            <div class="ring" style="left: 30%; top: 50%; animation-delay: {{ i * 1.3 }}s;"></div>
+            <div class="ring" style="left: 70%; top: 30%; animation-delay: {{ i * 1.3 + 0.6 }}s;"></div>
+            {% endfor %}
+        </div>
+        
+        <div class="molecules">
+            {% for i in range(15) %}
+            <div class="molecule" style="left: {{ range(0, 100)|random }}%; top: {{ range(0, 100)|random }}%; animation-delay: {{ range(0, 10)|random }}s;"></div>
+            {% endfor %}
+        </div>
+        
+        <div class="hero-container">
             <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Cildinize Özel<br>Profesyonel Çözümler</h1>
-                    <div class="hero-buttons">
-                        <a href="#dermatolojik-tedaviler" class="primary-btn">Hizmetlerimiz</a>
-                        <a href="{{ url_for('randevu') }}" class="secondary-btn">Randevu Al</a>
-                    </div>
-                    <div class="hero-features">
-                        <div class="feature">
-                            <i class="fas fa-brain"></i>
-                            <span>Yapay Zeka<br>Destekli Analiz</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-hospital"></i>
-                            <span>Modern Klinik</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-user-check"></i>
-                            <span>Hasta Odaklı</span>
-                        </div>
-                    </div>
+                <div class="floating-particles">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
                 </div>
-                <div class="hero-image">
-                    <img src="{{ url_for('static', filename='images/ai-skin-analysis.jpg') }}" alt="Dermatoloji Kliniği">
-                    <div class="ai-nodes">
-                        <div class="node"></div>
-                        <div class="node"></div>
-                        <div class="node"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
+                <h1>Dr. Yağmur Aslan</h1>
+                <h2 data-translate="hero.subtitle">Dermatoloji Uzmanı</h2>
+                <p data-translate="hero.description">Uzman kadromuz ile en yüksek kalitede dermatolojik tedavi hizmetleri sunuyoruz.</p>
+                <div class="hero-buttons">
+                    <a href="/randevu" class="btn-primary">
+                        <span data-translate="menu.appointment">Randevu Al</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
+            </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='images/ai-skin-analysis.jpg') }}" alt="Dr. Yağmur Aslan Dermatoloji" class="feature-image">
             </div>
         </div>
     </section>
 
-    <section class="ai-dermatology">
+    <section id="services" class="services-section">
         <div class="container">
-            <div class="ai-content">
-                <div class="ai-text">
-                    <h2>Yapay Zeka ile<br>İleri Dermatoloji</h2>
-                    <p class="ai-subtitle">Cildinizin sağlığı için en son teknoloji ve yapay zeka destekli analiz sistemleri</p>
-                    <ul class="ai-features">
-                        <li>
-                            <div class="ai-feature-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <div class="ai-feature-text">
-                                <h4>Akıllı Cilt Analizi</h4>
-                                <p>Yapay zeka destekli detaylı cilt haritalaması ve analizi</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ai-feature-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="ai-feature-text">
-                                <h4>Gelişim Takibi</h4>
-                                <p>Tedavi sürecinin dijital takibi ve ilerleme analizi</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ai-feature-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <div class="ai-feature-text">
-                                <h4>Erken Teşhis</h4>
-                                <p>Cilt kanseri ve problemlerinin erken tespiti</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="dermatology-conditions" id="dermatolojik-tedaviler">
-        <div class="container">
-            <h2>Dermatolojik Tedaviler</h2>
-            <div class="conditions-grid">
-                <div class="condition-card">
-                    <div class="condition-icon">
+            <h2 class="section-title">{{ t.services.title }}</h2>
+            <div class="services-grid">
+                <div class="service-card" data-service="acne">
+                    <div class="service-icon">
                         <i class="fas fa-user-md"></i>
                     </div>
-                    <h3>Akne ve Sivilce<br>Tedavisi</h3>
+                    <h3 data-translate="services.treatments.acne.title">Akne Tedavisi</h3>
+                    <div class="service-details">
+                        <p data-translate="services.treatments.acne.desc">Akne tedavisinde, hastanın cilt tipine ve akne şiddetine göre özelleştirilmiş bir yaklaşım izlenir. Topikal ilaçlar, antibiyotikler, kimyasal peelingler ve bazı durumlarda lazer uygulamaları tercih edilebilir.</p>
                 </div>
-                <div class="condition-card">
-                    <div class="condition-icon">
-                        <i class="fas fa-clinic-medical"></i>
+                    <div class="service-link">
+                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    <h3>Pigmentasyon<br>Tedavisi</h3>
                 </div>
-                <div class="condition-card">
-                    <div class="condition-icon">
-                        <i class="fas fa-heartbeat"></i>
+                <div class="service-card" data-service="pigmentation">
+                    <div class="service-icon">
+                        <i class="fas fa-magic"></i>
                     </div>
-                    <h3>Botoks ve<br>Dolgu</h3>
+                    <h3 data-translate="services.treatments.pigmentation.title">Pigmentasyon Tedavisi</h3>
+                    <div class="service-details">
+                        <p data-translate="services.treatments.pigmentation.desc">Pigment lekeleri genellikle güneş hasarı, hormonal değişiklikler veya cilt travmaları sonrası oluşur. Leke tedavisinde kimyasal peeling, lazer uygulamaları ve cilt tonu dengeleyici medikal ürünler kullanılır.</p>
                 </div>
-                <div class="condition-card">
-                    <div class="condition-icon">
-                        <i class="fas fa-hospital-user"></i>
+                    <div class="service-link">
+                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    <h3>Lazer<br>Epilasyon</h3>
                 </div>
-                <div class="condition-card">
-                    <div class="condition-icon">
-                        <i class="fas fa-stethoscope"></i>
+                <div class="service-card" data-service="botox">
+                    <div class="service-icon">
+                        <i class="fas fa-syringe"></i>
                     </div>
-                    <h3>Medikal<br>Cilt Bakımı</h3>
+                    <h3 data-translate="services.treatments.botox.title">Botoks ve Dolgu</h3>
+                    <div class="service-details">
+                        <p data-translate="services.treatments.botox.desc">Botoks, mimik kaslarını geçici olarak durdurarak kırışıklıkların görünümünü azaltır. Dolgu uygulamaları ise hacim kaybı yaşanan bölgelerde cildin dolgun ve genç görünmesini sağlar.</p>
                 </div>
-                <div class="condition-card">
-                    <div class="condition-icon">
-                        <i class="fas fa-hand-holding-medical"></i>
+                    <div class="service-link">
+                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    <h3>PRP<br>Tedavisi</h3>
+                </div>
+                <div class="service-card" data-service="laser">
+                    <div class="service-icon">
+                        <i class="fas fa-laser-pointer"></i>
+                    </div>
+                    <h3 data-translate="services.treatments.laser.title">Lazer Epilasyon</h3>
+                    <div class="service-details">
+                        <p data-translate="services.treatments.laser.desc">Lazer epilasyon, istenmeyen tüylerden kalıcı olarak kurtulmanın en etkili yollarından biridir. Cilt ve kıl tipine uygun lazer teknolojisiyle, kıl kökleri hedef alınarak yok edilir.</p>
+                </div>
+                    <div class="service-link">
+                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="service-card" data-service="skincare">
+                    <div class="service-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3 data-translate="services.treatments.skincare.title">Medikal Cilt Bakımı</h3>
+                    <div class="service-details">
+                        <p data-translate="services.treatments.skincare.desc">Medikal cilt bakımı; gözenek temizliği, nem dengesi sağlama, ölü derilerden arındırma ve kolajen üretimini destekleme amaçlı profesyonel bir uygulamadır.</p>
+                </div>
+                    <div class="service-link">
+                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="service-card" data-service="prp">
+                    <div class="service-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h3 data-translate="services.treatments.prp.title">PRP Tedavisi</h3>
+                    <div class="service-details">
+                        <p data-translate="services.treatments.prp.desc">PRP (Platelet Rich Plasma), kişinin kendi kanından elde edilen platelet yönünden zengin plazmanın cilt altına enjekte edilmesiyle yapılır. Hücre yenilenmesini destekler, ince kırışıklıkları azaltır.</p>
+                    </div>
+                    <div class="service-link">
+                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="about-section" id="hakkimda">
+    <section id="about" class="about">
         <div class="container">
+            <h2 class="section-title">{{ t.about.title }}</h2>
             <div class="about-content">
-                <h2>Hakkımızda</h2>
-                <div class="about-text">
-                    <h3>Dr. Yağmur - Dermatoloji Uzmanı</h3>
-                    <p class="about-intro">Cilt sağlığı ve güzelliği, sadece dış görünüşümüzü değil, iç sağlığımızı da yansıtır. Dr. Yağmur olarak, cilt problemleriyle ilgili kapsamlı çözümler sunarak, hastalarımıza yalnızca tedavi değil, güvenli ve rahat bir iyileşme süreci de sağlamayı amaçlıyoruz.</p>
-                    
-                    <div class="about-vision">
-                        <div class="vision-item">
-                            <h4>Misyonumuz</h4>
-                            <p>Her bireyin cilt sağlığını en üst seviyeye çıkarmak, sadece tedavi etmek değil, doğru bilgilendirme ile hastalarımızı bilinçlendirmek. Sağlıklı bir cilt, sağlıklı bir yaşamın anahtarıdır.</p>
+                <p class="about-description">{{ t.about.description }}</p>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="fas fa-bullseye"></i>
                         </div>
-                        <div class="vision-item">
-                            <h4>Vizyonumuz</h4>
-                            <p>Daha fazla insanın sağlıklı bir ciltle yaşamına devam etmesine katkı sağlamak ve dermatoloji alanında öncü olmak.</p>
+                        <div class="about-content-wrapper">
+                            <h3 class="mission-title" data-translate="about.mission">Misyonumuz</h3>
+                            <p class="mission-text" data-translate="about.mission_text">Hastalarımıza cilt sağlığı alanında bilimsel temelli, güvenilir ve kolay erişilebilir çözümler sunmak; doğru tanı, bilgilendirici içerikler ve etkili iletişimle bireylerin yaşam kalitesini artırmaya katkı sağlamaktır.</p>
                         </div>
                     </div>
-                    <div class="about-actions">
-                        <a href="#" class="review-btn" onclick="openReviewForm()">Değerlendirme Yap</a>
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="about-content-wrapper">
+                            <h3 class="vision-title" data-translate="about.vision">Vizyonumuz</h3>
+                            <p class="vision-text" data-translate="about.vision_text">Dermatoloji alanında dijital sağlık hizmetlerinin öncüsü olarak; modern, kullanıcı dostu ve güvenilir bir platformla hastaların ihtiyaç duyduğu her an yanında olan, örnek gösterilen bir doktor web sitesi olmak.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonials">
+                    <h3>{{ t.about.evaluations }}</h3>
+                    <div class="testimonials-grid">
+                        {% for testimonial in t.about.testimonials %}
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                {% for i in range(testimonial.rating) %}
+                                <i class="fas fa-star"></i>
+                                {% endfor %}
+                            </div>
+                            <p class="testimonial-text">"{{ testimonial.comment }}"</p>
+                            <p class="testimonial-author">- {{ testimonial.name }}</p>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="contact-section" id="iletisim">
+    <section id="contact" class="contact">
         <div class="container">
-            <div class="contact-content">
-                <h2>İletişim</h2>
+            <h2 class="section-title">{{ t.contact.title }}</h2>
+            <div class="contact-wrapper">
                 <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Adres</h3>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>{{ t.contact.address }}</h3>
                         <p>İstanbul, Türkiye</p>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <h3>Telefon</h3>
-                        <p>+90 555 123 4567</p>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>{{ t.contact.phone }}</h3>
+                        <p><a href="tel:+905551234567">+90 555 123 4567</a></p>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <h3>E-posta</h3>
-                        <p>info@drasla.com</p>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>{{ t.contact.email }}</h3>
+                        <p><a href="mailto:info@draslan.com">info@draslan.com</a></p>
                     </div>
                 </div>
             </div>
@@ -209,312 +258,992 @@
     --background: #f8f9fa;
 }
 
-.main-nav {
-    background: white;
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
     padding: 1.2rem 0;
-    border-bottom: 1px solid rgba(42, 157, 143, 0.1);
-    box-shadow: 0 2px 15px rgba(42, 157, 143, 0.05);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.main-nav .container {
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.nav-brand {
+.logo {
     display: flex;
     flex-direction: column;
+}
+
+.logo a {
     text-decoration: none;
-    margin-right: 3rem;
-    transition: all 0.3s ease;
-}
-
-.nav-brand:hover {
-    transform: translateY(-2px);
-}
-
-.doctor-title {
-    color: var(--primary);
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 0.2rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.doctor-name {
-    color: var(--text);
-    font-size: 1.8rem;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-    margin-bottom: 0.3rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.doctor-specialty {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
-
-.nav-menu {
     display: flex;
-    gap: 2.5rem;
-    align-items: center;
+    flex-direction: column;
 }
 
-.nav-menu a {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
+.logo-text {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     transition: all 0.3s ease;
 }
 
-.nav-menu a:not(.nav-btn):hover {
+.logo-subtitle {
+    font-size: 1rem;
     color: var(--primary);
-    background: var(--primary-light);
+    margin-top: 0.2rem;
+    font-weight: 500;
+    opacity: 0.9;
 }
 
-.nav-btn {
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.nav-link {
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05rem;
+}
+
+.nav-link:not(.btn-primary)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.nav-link:not(.btn-primary):hover::after {
+    width: 100%;
+}
+
+.btn-primary {
     background: var(--primary);
     color: white !important;
-    padding: 0.8rem 1.8rem !important;
-    border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.15);
-}
-
-.nav-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(42, 157, 143, 0.2);
-}
-
-.hero-section {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 60px 0;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.2);
     position: relative;
     overflow: hidden;
 }
 
-.hero-content {
-    display: grid;
-    grid-template-columns: 0.4fr 1.6fr;
-    gap: 40px;
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(42, 157, 143, 0.3);
+}
+
+.btn-primary:hover::before {
+    transform: translateX(100%);
+}
+
+.language-switcher {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.lang-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.lang-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+.lang-btn:hover:not(.active) {
+    background: rgba(42, 157, 143, 0.1);
+}
+
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.hero {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);
+    display: flex;
     align-items: center;
+    overflow: hidden;
 }
 
-.hero-text {
-    padding-right: 20px;
+/* Hexagon Grid Animation */
+.hexagon-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.hexagon {
+    position: absolute;
+    width: 40px;
+    height: 46px;
+    background: var(--primary);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    animation: hexagonFloat 20s infinite linear;
+    opacity: 0;
+}
+
+@keyframes hexagonFloat {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* DNA Helix Animation */
+.dna-animation {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    height: 400px;
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.dna-strand {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: var(--primary);
+    animation: dnaRotate 4s infinite ease-in-out;
+}
+
+@keyframes dnaRotate {
+    0% {
+        transform: rotateY(0deg) translateX(0);
+    }
+    50% {
+        transform: rotateY(180deg) translateX(20px);
+    }
+    100% {
+        transform: rotateY(360deg) translateX(0);
+    }
+}
+
+/* Pulse Rings Animation */
+.pulse-rings {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ring {
+    position: absolute;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    animation: ringPulse 4s infinite ease-out;
+    opacity: 0;
+}
+
+@keyframes ringPulse {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.5;
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Floating Molecules Animation */
+.molecules {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.molecule {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: moleculeFloat 15s infinite linear;
+    opacity: 0;
+}
+
+@keyframes moleculeFloat {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.2;
+    }
+    90% {
+        opacity: 0.2;
+    }
+    100% {
+        transform: translate(100px, -100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    position: relative;
     z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+    gap: 4rem;
 }
 
-.hero-text h1 {
-    font-size: 2.6rem;
-    line-height: 1.2;
-    color: var(--primary-dark);
-    margin-bottom: 2rem;
-    font-family: 'Playfair Display', serif;
+.hero-content {
+    position: relative;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -1px;
+    position: relative;
+    animation: slideIn 1s ease-out;
+}
+
+.hero-content h2 {
+    font-size: 2.2rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    animation: slideIn 1s ease-out 0.2s backwards;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    max-width: 600px;
+    animation: slideIn 1s ease-out 0.4s backwards;
 }
 
 .hero-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-}
-
-.primary-btn, .secondary-btn {
-    padding: 1rem 2rem;
-    border-radius: 30px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.primary-btn {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.2);
-}
-
-.secondary-btn {
-    background: white;
-    color: var(--primary);
-    border: 2px solid var(--primary);
-}
-
-.primary-btn:hover, .secondary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(42, 157, 143, 0.2);
-}
-
-.hero-features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-}
-
-.feature {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    color: var(--text);
-    padding: 0.8rem;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-.feature:hover {
-    background: rgba(42, 157, 143, 0.05);
-}
-
-.feature i {
-    color: var(--primary);
-    font-size: 1.4rem;
-}
-
-.feature span {
-    font-size: 0.9rem;
-    line-height: 1.3;
+    animation: slideIn 1s ease-out 0.6s backwards;
 }
 
 .hero-image {
     position: relative;
-    border-radius: 20px;
+    border-radius: 30px;
     overflow: hidden;
-    max-width: 1400px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: -200px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: perspective(1000px) rotateY(-5deg);
+    transition: all 0.5s ease;
+    animation: fadeIn 1s ease-out 0.8s backwards;
+}
+
+.hero-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(42, 157, 143, 0.2) 0%, transparent 100%);
     z-index: 1;
 }
 
-.hero-image img {
+.hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    z-index: 2;
+}
+
+.hero-image:hover {
+    transform: perspective(1000px) rotateY(0deg) translateY(-10px);
+}
+
+.feature-image {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(42, 157, 143, 0.15);
-    object-fit: cover;
-    transform: scale(1.1);
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
 }
 
-.ai-nodes {
+.hero-image:hover .feature-image {
+    transform: scale(1);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: perspective(1000px) rotateY(-5deg) translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: perspective(1000px) rotateY(-5deg) translateY(0);
+    }
+}
+
+.floating-particles {
     position: absolute;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    overflow: hidden;
     pointer-events: none;
+    z-index: 1;
 }
 
-.node {
+.particle {
     position: absolute;
-    width: 12px;
-    height: 12px;
-    background: white;
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
     border-radius: 50%;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    animation: pulse 2s infinite;
+    animation: float 15s infinite linear;
 }
 
-.node:nth-child(1) {
-    top: 30%;
-    left: 25%;
-    animation-delay: 0s;
+.particle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+.particle:nth-child(2) { top: 60%; left: 80%; animation-delay: -2s; }
+.particle:nth-child(3) { top: 40%; left: 40%; animation-delay: -4s; }
+.particle:nth-child(4) { top: 80%; left: 60%; animation-delay: -6s; }
+.particle:nth-child(5) { top: 30%; left: 70%; animation-delay: -8s; }
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(100px, -100px) rotate(360deg);
+        opacity: 0;
+    }
 }
 
-.node:nth-child(2) {
-    top: 45%;
-    right: 30%;
-    animation-delay: 0.5s;
+.services-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
 }
 
-.node:nth-child(3) {
-    bottom: 35%;
-    left: 40%;
-    animation-delay: 1s;
+.section-title {
+    text-align: center;
+    font-size: 2.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 1s ease-out;
 }
 
-.line {
+.section-title::after {
+    content: '';
     position: absolute;
-    background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.2) 100%);
-    height: 1px;
-    width: 100px;
-    animation: glow 3s infinite;
-}
-
-.line:nth-child(4) {
-    top: 40%;
-    left: 20%;
-    transform: rotate(45deg);
-    animation-delay: 1.5s;
-}
-
-.line:nth-child(5) {
-    bottom: 35%;
-    right: 25%;
-    transform: rotate(-45deg);
-    animation-delay: 2s;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    50% {
-        transform: scale(1.5);
-        opacity: 0.4;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-}
-
-@keyframes glow {
-    0% {
-        opacity: 0.2;
-    }
-    50% {
-        opacity: 0.8;
-    }
-    100% {
-        opacity: 0.2;
-    }
-}
-
-.services-preview {
-    padding: 100px 0;
-    background: white;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 2px;
 }
 
 .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .service-card {
     background: white;
-    padding: 2rem;
-    border-radius: 15px;
+    padding: 2.5rem;
+    border-radius: 20px;
     text-align: center;
     transition: all 0.3s ease;
-    border: 1px solid rgba(42, 157, 143, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    animation: fadeInUp 1s ease-out;
+    animation-fill-mode: both;
 }
 
 .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(42, 157, 143, 0.1);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(42, 157, 143, 0.15);
+}
+
+.service-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    text-align: left;
+    margin-top: 0;
+    opacity: 0;
+}
+
+.service-card.active .service-details {
+    max-height: 500px;
+    margin-top: 1.5rem;
+    opacity: 1;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.service-details p {
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 0.95rem;
+    margin: 0;
+    padding: 0.5rem 0;
 }
 
 .service-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    animation: floatAnimation 3s ease-in-out infinite;
+}
+
+.service-card:hover .service-icon {
+    background: var(--primary);
+}
+
+.service-icon i {
+    font-size: 2rem;
+    color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon i {
+    color: white;
+}
+
+.service-card h3 {
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.service-card p {
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.service-link i {
+    transition: transform 0.3s ease;
+}
+
+.service-card.active .service-link i {
+    transform: rotate(180deg);
+}
+
+.about {
+    padding: 8rem 0;
+    background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+    top: -100px;
+    left: -100px;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+.about::after {
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+    bottom: -50px;
+    right: -50px;
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+.about-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-description {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--text);
+    margin: 2rem auto 5rem;
+    max-width: 900px;
+    line-height: 1.6;
+    font-weight: 500;
+    position: relative;
+    padding: 2rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 1s ease-out 0.2s backwards;
+}
+
+.about-description::before,
+.about-description::after {
+    content: '';
+        position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--primary);
+    opacity: 0.2;
+}
+
+.about-description::before {
+    top: 10px;
+    left: 10px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.about-description::after {
+    bottom: 10px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatAnimation {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.about-card {
+    animation: fadeInUp 1s ease-out;
+    animation-fill-mode: both;
+}
+
+.about-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.about-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(42, 157, 143, 0.15);
+}
+
+.about-icon {
+    animation: floatAnimation 3s ease-in-out infinite;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.about-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4rem;
+    border-radius: 30px;
+    text-align: center;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.about-card:first-child {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.about-card:first-child h3,
+.about-card:first-child p {
+    color: white;
+}
+
+.about-card:first-child .about-icon {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.about-card:first-child .about-icon i {
+    color: white;
+}
+
+.about-icon {
+    width: 110px;
+    height: 110px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    position: relative;
+    margin: 0 0 2rem 0;
+}
+
+.about-icon::after {
+    content: '';
+    position: absolute;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border: 2px dashed currentColor;
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+    opacity: 0.2;
+}
+
+.about-icon i {
+    font-size: 2.8rem;
+    color: var(--primary);
+    transition: all 0.4s ease;
+}
+
+.about-content-wrapper {
+    text-align: center;
+}
+
+.about-card h3 {
+    font-size: 2rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 1rem;
+    display: inline-block;
+}
+
+.about-card h3::after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 4px;
+    background: currentColor;
+    bottom: 0;
+    left: 10%;
+    border-radius: 2px;
+    opacity: 0.3;
+}
+
+.about-card p {
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 1.15rem;
+    position: relative;
+    margin: 0;
+    max-width: 500px;
+}
+
+@media (max-width: 1200px) {
+    .about-grid {
+        gap: 2rem;
+        padding: 0 2rem;
+    }
+
+    .about-card {
+        padding: 3rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .about-description {
+        font-size: 1.3rem;
+        margin-bottom: 4rem;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        padding: 6rem 0;
+    }
+
+    .about-description {
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+    }
+
+    .about-card {
+        padding: 2.5rem;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.testimonials {
+    margin-top: 4rem;
+}
+
+.testimonials h3 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--primary-dark);
+    margin-bottom: 2rem;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(42, 157, 143, 0.15);
+}
+
+.testimonial-rating {
+    color: #ffd700;
+    margin-bottom: 1rem;
+}
+
+.testimonial-text {
+    color: var(--text);
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    color: var(--primary);
+    font-weight: 600;
+    text-align: right;
+}
+
+@media (max-width: 992px) {
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.contact {
+    padding: 6rem 0;
+    background: white;
+}
+
+.contact-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+}
+
+.contact-card {
+    background: var(--background);
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(42, 157, 143, 0.15);
+}
+
+.contact-icon {
     width: 70px;
     height: 70px;
     background: var(--primary-light);
@@ -525,648 +1254,268 @@
     margin: 0 auto 1.5rem;
 }
 
-.service-icon i {
+.contact-icon i {
     font-size: 1.8rem;
     color: var(--primary);
 }
 
-.service-card h3 {
+.contact-card h3 {
+    font-size: 1.2rem;
     color: var(--primary-dark);
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
 }
 
-.service-card p {
-    color: var(--text-light);
-    font-size: 0.95rem;
+.contact-card p {
+    color: var(--text);
     line-height: 1.6;
 }
 
-/* About Section Styles */
-.about-section {
-    padding: 100px 0;
-    background: white;
-}
-
-.about-content {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.about-content h2 {
-    font-size: 2.4rem;
-    color: var(--primary-dark);
-    margin-bottom: 2rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.about-content h3 {
-    font-size: 1.8rem;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.about-intro {
-    font-size: 1.15rem;
-    line-height: 1.8;
+.contact-card a {
     color: var(--text);
-    margin-bottom: 3rem;
-}
-
-.about-vision {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-top: 2rem;
-}
-
-.vision-item {
-    text-align: left;
-    padding: 2rem;
-    background: var(--background);
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-.vision-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.1);
-}
-
-.vision-item h4 {
-    color: var(--primary-dark);
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.vision-item p {
-    color: var(--text);
-    font-size: 1.05rem;
-    line-height: 1.7;
-}
-
-.about-actions {
-    margin-top: 3rem;
-    text-align: center;
-}
-
-.review-btn {
-    display: inline-block;
-    background: var(--primary);
-    color: white;
     text-decoration: none;
-    padding: 1rem 2rem;
-    border-radius: 30px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.2);
+    transition: color 0.3s ease;
 }
 
-.review-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(42, 157, 143, 0.25);
-}
-
-@media (max-width: 768px) {
-    .about-vision {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .about-content h2 {
-        font-size: 2rem;
-    }
-
-    .about-content h3 {
-        font-size: 1.6rem;
-    }
-
-    .about-intro {
-        font-size: 1.1rem;
-        padding: 0 1rem;
-    }
-
-    .vision-item {
-        padding: 1.5rem;
-    }
-}
-
-.review-form-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.review-form-container {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.review-form-container h3 {
-    margin-bottom: 1.5rem;
-    color: var(--primary-dark);
-    font-family: 'Playfair Display', serif;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--text);
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-}
-
-.form-group textarea {
-    height: 120px;
-    resize: vertical;
-}
-
-.rating-input {
-    margin-bottom: 1.5rem;
-}
-
-.star-rating {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 0.5rem;
-    font-size: 1.5rem;
-}
-
-.star-rating input {
-    display: none;
-}
-
-.star-rating label {
-    color: #ddd;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.star-rating input:checked ~ label,
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-    color: #FFD700;
-}
-
-.form-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-}
-
-.form-actions button {
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.form-actions button[type="submit"] {
-    background: var(--primary);
-    color: white;
-}
-
-.form-actions button[type="button"] {
-    background: #f1f1f1;
-    color: var(--text);
-}
-
-.form-actions button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.ai-dermatology {
-    padding: 80px 0;
-    background: linear-gradient(135deg, var(--primary-light) 0%, white 100%);
-}
-
-.ai-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.ai-text h2 {
-    font-size: 2.8rem;
-    color: var(--primary-dark);
-    margin-bottom: 1.5rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.ai-subtitle {
-    font-size: 1.2rem;
-    color: var(--text);
-    margin-bottom: 3rem;
-    line-height: 1.6;
-}
-
-.ai-features {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 3rem;
-}
-
-.ai-features li {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.1);
-    transition: all 0.3s ease;
-}
-
-.ai-features li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(42, 157, 143, 0.15);
-}
-
-.ai-feature-icon {
-    font-size: 2rem;
+.contact-card a:hover {
     color: var(--primary);
-    margin-bottom: 1.2rem;
 }
 
-.ai-feature-text h4 {
-    color: var(--primary-dark);
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
+.contact-social {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
 }
 
-.ai-feature-text p {
-    color: var(--text-light);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-/* Smooth Scroll ve Animasyonlar */
-html {
-    scroll-behavior: smooth;
-}
-
-.services-preview, .about-section, .ai-dermatology, .dermatology-conditions {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-}
-
-.fade-in {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@media (max-width: 1600px) {
-    .hero-image {
-        margin-right: -150px;
-    }
-}
-
-@media (max-width: 1400px) {
-    .hero-image {
-        margin-right: -100px;
-        max-width: 1200px;
-    }
-}
-
-@media (max-width: 1200px) {
-    .hero-image {
-        margin-right: -50px;
-        max-width: 1000px;
-    }
-    
-    .hero-content {
-        grid-template-columns: 0.5fr 1.5fr;
-    }
-}
-
-@media (max-width: 992px) {
-    .hero-image {
-        margin-right: 0;
-        max-width: 100%;
-    }
-    
-    .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 20px;
-    }
-
-    .hero-text {
-        padding-right: 0;
-        order: 2;
-    }
-
-    .hero-text h1 {
-        font-size: 2.2rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .hero-image {
-        order: 1;
-    }
-
-    .hero-buttons {
-        justify-content: center;
-    }
-
-    .hero-features {
-        justify-content: center;
-    }
-}
-
-/* Dermatolojik Hastalıklar Section */
-.dermatology-conditions {
-    padding: 100px 0;
-    background: linear-gradient(135deg, white 0%, var(--primary-light) 100%);
-}
-
-.dermatology-conditions h2 {
-    text-align: center;
-    font-size: 2.4rem;
-    color: var(--primary-dark);
-    margin-bottom: 3rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.conditions-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.condition-card {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.1);
-    cursor: pointer;
-}
-
-.condition-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(42, 157, 143, 0.15);
-}
-
-.condition-icon {
-    width: 120px;
-    height: 120px;
+.social-link {
+    width: 45px;
+    height: 45px;
     background: var(--primary-light);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.condition-card:hover .condition-icon {
-    background: var(--primary);
-}
-
-.condition-icon i {
-    font-size: 3rem;
     color: var(--primary);
     transition: all 0.3s ease;
 }
 
-.condition-card:hover .condition-icon i {
+.social-link:hover {
+    background: var(--primary);
     color: white;
+    transform: translateY(-3px);
 }
 
-.condition-card h3 {
-    color: var(--primary-dark);
-    font-size: 1.3rem;
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
-    font-family: 'Playfair Display', serif;
-}
-
-@media (max-width: 1024px) {
-    .conditions-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .conditions-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        padding: 0 1rem;
-    }
-
-    .dermatology-conditions h2 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .condition-card {
-        padding: 1.5rem;
-    }
-
-    .condition-icon {
-        width: 100px;
-        height: 100px;
-    }
-
-    .condition-card h3 {
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .conditions-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Contact Section */
-.contact-section {
-    padding: 100px 0;
-    background: linear-gradient(135deg, var(--primary-light) 0%, white 100%);
-}
-
-.contact-content {
-    max-width: 900px;
-    margin: 0 auto;
+.site-footer {
+    background: #1e2a31;
+    padding: 0.75rem;
     text-align: center;
 }
 
-.contact-content h2 {
-    font-size: 2.4rem;
-    color: var(--primary-dark);
-    margin-bottom: 3rem;
-    font-family: 'Playfair Display', serif;
+.footer-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
 }
 
-.contact-info {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+.footer-content a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
 }
 
-.contact-item {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.1);
-}
-
-.contact-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(42, 157, 143, 0.15);
-}
-
-.contact-item i {
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-}
-
-.contact-item h3 {
-    color: var(--primary-dark);
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.contact-item p {
-    color: var(--text);
-    font-size: 1.1rem;
-    line-height: 1.6;
+.separator {
+    color: rgba(255, 255, 255, 0.3);
 }
 
 @media (max-width: 768px) {
-    .contact-info {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0 1rem;
-    }
-
-    .contact-content h2 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .contact-item {
-        padding: 2rem;
+    .footer-content {
+        font-size: 0.75rem;
+        gap: 0.5rem;
     }
 }
 </style>
 {% endblock %}
 
 {% block scripts %}
-<script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 <script>
-// Scroll Animasyonları
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.2
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-            observer.unobserve(entry.target);
+document.addEventListener('DOMContentLoaded', function() {
+    const translations = {
+        tr: {
+            menu: {
+                home: "Ana Sayfa",
+                about: "Hakkımızda",
+                services: "Hizmetler",
+                contact: "İletişim",
+                appointment: "Randevu Al"
+            },
+            hero: {
+                subtitle: "Dermatoloji Uzmanı",
+                description: "Uzman kadromuz ile en yüksek kalitede dermatolojik tedavi hizmetleri sunuyoruz."
+            },
+            about: {
+                title: "Hakkımızda",
+                description: "Uzman kadromuz ile en yüksek kalitede dermatolojik tedavi hizmetleri sunuyoruz.",
+                mission: "Misyonumuz",
+                mission_text: "Hastalarımıza cilt sağlığı alanında bilimsel temelli, güvenilir ve kolay erişilebilir çözümler sunmak; doğru tanı, bilgilendirici içerikler ve etkili iletişimle bireylerin yaşam kalitesini artırmaya katkı sağlamaktır.",
+                vision: "Vizyonumuz",
+                vision_text: "Dermatoloji alanında dijital sağlık hizmetlerinin öncüsü olarak; modern, kullanıcı dostu ve güvenilir bir platformla hastaların ihtiyaç duyduğu her an yanında olan, örnek gösterilen bir doktor web sitesi olmak.",
+                evaluations: "Hasta Değerlendirmeleri"
+            },
+            services: {
+                title: "Hizmetlerimiz",
+                learn_more: "Detaylı Bilgi",
+                treatments: {
+                    acne: {
+                        title: "Akne Tedavisi",
+                        desc: "Akne tedavisinde, hastanın cilt tipine ve akne şiddetine göre özelleştirilmiş bir yaklaşım izlenir. Topikal ilaçlar, antibiyotikler, kimyasal peelingler ve bazı durumlarda lazer uygulamaları tercih edilebilir."
+                    },
+                    pigmentation: {
+                        title: "Pigmentasyon Tedavisi",
+                        desc: "Pigment lekeleri genellikle güneş hasarı, hormonal değişiklikler veya cilt travmaları sonrası oluşur. Leke tedavisinde kimyasal peeling, lazer uygulamaları ve cilt tonu dengeleyici medikal ürünler kullanılır."
+                    },
+                    botox: {
+                        title: "Botoks ve Dolgu",
+                        desc: "Botoks, mimik kaslarını geçici olarak durdurarak kırışıklıkların görünümünü azaltır. Dolgu uygulamaları ise hacim kaybı yaşanan bölgelerde cildin dolgun ve genç görünmesini sağlar."
+                    },
+                    laser: {
+                        title: "Lazer Epilasyon",
+                        desc: "Lazer epilasyon, istenmeyen tüylerden kalıcı olarak kurtulmanın en etkili yollarından biridir. Cilt ve kıl tipine uygun lazer teknolojisiyle, kıl kökleri hedef alınarak yok edilir."
+                    },
+                    skincare: {
+                        title: "Medikal Cilt Bakımı",
+                        desc: "Medikal cilt bakımı; gözenek temizliği, nem dengesi sağlama, ölü derilerden arındırma ve kolajen üretimini destekleme amaçlı profesyonel bir uygulamadır."
+                    },
+                    prp: {
+                        title: "PRP Tedavisi",
+                        desc: "PRP (Platelet Rich Plasma), kişinin kendi kanından elde edilen platelet yönünden zengin plazmanın cilt altına enjekte edilmesiyle yapılır. Hücre yenilenmesini destekler, ince kırışıklıkları azaltır."
+                    }
+                }
+            },
+            contact: {
+                title: "İletişim",
+                address: "Adres",
+                phone: "Telefon",
+                email: "E-posta"
+            }
+        },
+        en: {
+            menu: {
+                home: "Home",
+                about: "About",
+                services: "Services",
+                contact: "Contact",
+                appointment: "Book Appointment"
+            },
+            hero: {
+                subtitle: "Dermatologist",
+                description: "We provide high-quality dermatological treatment services with our expert staff."
+            },
+            about: {
+                title: "About Us",
+                description: "We provide high-quality dermatological treatment services with our expert staff.",
+                mission: "Our Mission",
+                mission_text: "To provide scientifically-based, reliable, and easily accessible solutions in skin health; to contribute to improving individuals' quality of life through accurate diagnosis, informative content, and effective communication.",
+                vision: "Our Vision",
+                vision_text: "To be a leading example of a doctor's website in digital health services in dermatology; providing a modern, user-friendly, and reliable platform that is always there when patients need it.",
+                evaluations: "Patient Reviews"
+            },
+            services: {
+                title: "Our Services",
+                learn_more: "Learn More",
+                treatments: {
+                    acne: {
+                        title: "Acne Treatment",
+                        desc: "In acne treatment, a customized approach is followed according to the patient's skin type and acne severity. Topical medications, antibiotics, chemical peels, and in some cases, laser applications are preferred."
+                    },
+                    pigmentation: {
+                        title: "Pigmentation Treatment",
+                        desc: "Pigmentation spots usually occur after sun damage, hormonal changes, or skin trauma. Chemical peeling, laser applications, and skin tone balancing medical products are used in spot treatment."
+                    },
+                    botox: {
+                        title: "Botox and Fillers",
+                        desc: "Botox temporarily stops mimetic muscles, reducing the appearance of wrinkles. Filler applications provide a plump and youthful appearance in areas experiencing volume loss."
+                    },
+                    laser: {
+                        title: "Laser Hair Removal",
+                        desc: "Laser hair removal is one of the most effective ways to permanently remove unwanted hair. Using laser technology suitable for skin and hair type, hair follicles are targeted and eliminated."
+                    },
+                    skincare: {
+                        title: "Medical Skin Care",
+                        desc: "Medical skin care is a professional application aimed at pore cleansing, moisture balance, dead skin removal, and supporting collagen production."
+                    },
+                    prp: {
+                        title: "PRP Treatment",
+                        desc: "PRP (Platelet Rich Plasma) is performed by injecting platelet-rich plasma obtained from the person's own blood under the skin. It supports cell renewal and reduces fine wrinkles."
+                    }
+                }
+            },
+            contact: {
+                title: "Contact",
+                address: "Address",
+                phone: "Phone",
+                email: "Email"
+            }
         }
-    });
-}, observerOptions);
+    };
 
-document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.services-preview, .about-section, .ai-dermatology, .dermatology-conditions');
-    sections.forEach(section => observer.observe(section));
-});
+    // Language switching function
+    function changeLang(lang) {
+        if (!translations[lang]) return;
+        
+        const elements = document.querySelectorAll('[data-translate]');
+        elements.forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (!key) return;
 
-function openReviewForm() {
-    const reviewForm = document.createElement('div');
-    reviewForm.className = 'review-form-overlay';
-    reviewForm.innerHTML = `
-        <div class="review-form-container">
-            <h3>Değerlendirmenizi Yazın</h3>
-            <form id="reviewForm" onsubmit="submitReview(event)">
-                <div class="rating-input">
-                    <label>Puanınız:</label>
-                    <div class="star-rating">
-                        <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
-                        <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
-                        <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
-                        <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
-                        <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="reviewerName">İsminiz:</label>
-                    <input type="text" id="reviewerName" required>
-                </div>
-                <div class="form-group">
-                    <label for="reviewText">Değerlendirmeniz:</label>
-                    <textarea id="reviewText" required></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="button" onclick="closeReviewForm()">İptal</button>
-                    <button type="submit">Gönder</button>
-                </div>
-            </form>
-        </div>
-    `;
-    document.body.appendChild(reviewForm);
-}
+            const keys = key.split('.');
+            let value = translations[lang];
+            
+            for (const k of keys) {
+                if (!value || !value[k]) return;
+                value = value[k];
+            }
 
-function closeReviewForm() {
-    const overlay = document.querySelector('.review-form-overlay');
-    if (overlay) {
-        overlay.remove();
+            if (value) {
+                element.textContent = value;
+            }
+        });
+
+        // Update active state of language buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+
+        // Store the selected language
+        localStorage.setItem('selectedLanguage', lang);
     }
-}
 
-function submitReview(event) {
-    event.preventDefault();
-    const rating = document.querySelector('input[name="rating"]:checked')?.value;
-    const name = document.getElementById('reviewerName').value;
-    const text = document.getElementById('reviewText').value;
+    // Initialize language from localStorage or default to Turkish
+    const savedLang = localStorage.getItem('selectedLanguage') || 'tr';
+    changeLang(savedLang);
 
-    // Burada değerlendirmeyi backend'e gönderecek AJAX isteği yapılacak
-    // Örnek: fetch('/api/reviews', { method: 'POST', body: JSON.stringify({rating, name, text}) })
+    // Add click handlers to language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const lang = e.target.getAttribute('data-lang');
+            if (lang) {
+                changeLang(lang);
+            }
+        });
+    });
 
-    alert('Değerlendirmeniz için teşekkür ederiz!');
-    closeReviewForm();
-}
+    // Service card functionality
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('click', function() {
+            this.classList.toggle('active');
+            serviceCards.forEach(otherCard => {
+                if (otherCard !== card) {
+                    otherCard.classList.remove('active');
+                }
+            });
+        });
+    });
+});
 </script>
 {% endblock %} 

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Randevu Al - Dr. Yağmur Aslan{% endblock %}
+{% block title %}{{ t.appointment.title }} - Dr. Yağmur Aslan{% endblock %}
 
 {% block content %}
 <main>
@@ -9,11 +9,11 @@
             <div class="appointment-content">
                 <a href="/" class="back-link">
                     <i class="fas fa-arrow-left"></i>
-                    <span>Ana Sayfaya Dön</span>
+                    <span>{{ t.menu.home }}</span>
                 </a>
 
-                <h1>Randevu Al</h1>
-                <p>Randevu almak için aşağıdaki formu doldurunuz.</p>
+                <h1>{{ t.appointment.title }}</h1>
+                <p>{{ t.appointment.form.description }}</p>
 
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
@@ -26,12 +26,12 @@
                 <div class="appointment-grid">
                     <div class="calendar-section">
                         <div class="calendar-header">
-                            <h2>Randevu Tarihi Seçin</h2>
+                            <h2>{{ t.appointment.form.date }}</h2>
                             <div class="calendar-nav">
                                 <button id="prevMonth" class="calendar-nav-btn">
                                     <i class="fas fa-chevron-left"></i>
                                 </button>
-                                <span id="currentMonth">Mart 2024</span>
+                                <span id="currentMonth"></span>
                                 <button id="nextMonth" class="calendar-nav-btn">
                                     <i class="fas fa-chevron-right"></i>
                                 </button>
@@ -40,7 +40,7 @@
                         <div class="calendar" id="calendar"></div>
                         
                         <div class="time-slots">
-                            <h3>Müsait Saatler</h3>
+                            <h3>{{ t.appointment.form.time }}</h3>
                             <div class="time-grid" id="timeSlots"></div>
                         </div>
                     </div>
@@ -48,17 +48,17 @@
                     <form method="POST" enctype="multipart/form-data" class="appointment-form">
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="name">Ad Soyad</label>
+                                <label for="name">{{ t.appointment.form.name }}</label>
                                 <input type="text" id="name" name="name" required>
                             </div>
                             
                             <div class="form-group">
-                                <label for="email">E-posta</label>
+                                <label for="email">{{ t.appointment.form.email }}</label>
                                 <input type="email" id="email" name="email" required>
                             </div>
                             
                             <div class="form-group">
-                                <label for="phone">Telefon</label>
+                                <label for="phone">{{ t.appointment.form.phone }}</label>
                                 <input type="tel" id="phone" name="phone" placeholder="05XX XXX XX XX" required>
                             </div>
                         </div>
@@ -67,15 +67,15 @@
                         <input type="hidden" id="selectedTime" name="time">
                         
                         <div class="form-group">
-                            <label for="reason">Randevu Nedeni</label>
+                            <label for="reason">{{ t.appointment.form.reason }}</label>
                             <textarea id="reason" name="reason" rows="3" required></textarea>
                         </div>
                         
                         <div class="form-group upload-group">
                             <label for="photo">
                                 <i class="fas fa-camera"></i>
-                                <span>Fotoğraf Ekle (Opsiyonel)</span>
-                                <small>Desteklenen formatlar: PNG, JPG, JPEG, GIF (Maks. 5MB)</small>
+                                <span>{{ t.appointment.form.photo }}</span>
+                                <small>{{ t.appointment.form.photo_help }}</small>
                             </label>
                             <input type="file" id="photo" name="photo" accept="image/png,image/jpeg,image/jpg,image/gif" onchange="validateFileSize(this)">
                         </div>
@@ -112,8 +112,8 @@
                         </script>
                         
                         <button type="submit" class="submit-btn" id="submitBtn" disabled>
-                            <span>Randevu Oluştur</span>
-                            <i class="fas fa-arrow-right"></i>
+                            <i class="fas fa-calendar-check"></i>
+                            {{ t.appointment.form.submit }}
                         </button>
                     </form>
                 </div>

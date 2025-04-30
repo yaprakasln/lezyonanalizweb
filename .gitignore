@@ -20,4 +20,9 @@ serviceAccountKey.json
 Thumbs.db 
 
 # Custom
-Dermaai/ 
+Dermaai/
+__pycache__/
+*.pyc
+.env
+venv/
+.DS_Store 
