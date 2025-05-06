@@ -3,123 +3,130 @@
 {% block title %}{{ t.appointment.title }} - Dr. Yağmur Aslan{% endblock %}
 
 {% block content %}
-<main>
-    <section class="appointment-section">
-        <div class="container">
-            <div class="appointment-content">
-                <a href="/" class="back-link">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>{{ t.menu.home }}</span>
-                </a>
-
-                <h1>{{ t.appointment.title }}</h1>
-                <p>{{ t.appointment.form.description }}</p>
-
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }}">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-                
-                <div class="appointment-grid">
-                    <div class="calendar-section">
-                        <div class="calendar-header">
-                            <h2>{{ t.appointment.form.date }}</h2>
-                            <div class="calendar-nav">
-                                <button id="prevMonth" class="calendar-nav-btn">
-                                    <i class="fas fa-chevron-left"></i>
-                                </button>
-                                <span id="currentMonth"></span>
-                                <button id="nextMonth" class="calendar-nav-btn">
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="calendar" id="calendar"></div>
-                        
-                        <div class="time-slots">
-                            <h3>{{ t.appointment.form.time }}</h3>
-                            <div class="time-grid" id="timeSlots"></div>
-                        </div>
-                    </div>
-
-                    <form method="POST" enctype="multipart/form-data" class="appointment-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">{{ t.appointment.form.name }}</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">{{ t.appointment.form.email }}</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="phone">{{ t.appointment.form.phone }}</label>
-                                <input type="tel" id="phone" name="phone" placeholder="05XX XXX XX XX" required>
-                            </div>
-                        </div>
-
-                        <input type="hidden" id="selectedDate" name="date">
-                        <input type="hidden" id="selectedTime" name="time">
-                        
-                        <div class="form-group">
-                            <label for="reason">{{ t.appointment.form.reason }}</label>
-                            <textarea id="reason" name="reason" rows="3" required></textarea>
-                        </div>
-                        
-                        <div class="form-group upload-group">
-                            <label for="photo">
-                                <i class="fas fa-camera"></i>
-                                <span>{{ t.appointment.form.photo }}</span>
-                                <small>{{ t.appointment.form.photo_help }}</small>
-                            </label>
-                            <input type="file" id="photo" name="photo" accept="image/png,image/jpeg,image/jpg,image/gif" onchange="validateFileSize(this)">
-                        </div>
-                        
-                        <div class="upload-preview">
-                            <!-- Preview content will be dynamically added here -->
-                        </div>
-                        
-                        <div class="selected-file-name">
-                            <!-- Selected file name will be dynamically added here -->
-                        </div>
-
-                        <script>
-                        function validateFileSize(input) {
-                            if (input.files && input.files[0]) {
-                                if (input.files[0].size > 5 * 1024 * 1024) {
-                                    alert('Dosya boyutu çok büyük! Maksimum 5MB yükleyebilirsiniz.');
-                                    input.value = '';
-                                    return;
-                                }
-                                
-                                // Dosya önizleme
-                                var reader = new FileReader();
-                                reader.onload = function(e) {
-                                    var preview = document.querySelector('.upload-preview');
-                                    preview.innerHTML = `<img src="${e.target.result}" alt="Fotoğraf önizleme">`;
-                                    
-                                    var fileName = document.querySelector('.selected-file-name');
-                                    fileName.textContent = input.files[0].name;
-                                }
-                                reader.readAsDataURL(input.files[0]);
-                            }
-                        }
-                        </script>
-                        
-                        <button type="submit" class="submit-btn" id="submitBtn" disabled>
-                            <i class="fas fa-calendar-check"></i>
-                            {{ t.appointment.form.submit }}
-                        </button>
-                    </form>
-                </div>
+<main class="appointment-page">
+    <div class="appointment-container">
+        <div class="appointment-header">
+            <a href="/" class="back-link prominent">
+                <i class="fas fa-arrow-left"></i>
+                <span>{{ t.menu.home }}</span>
+            </a>
+            <div class="header-content">
+                <!-- Başlık ve açıklama kaldırıldı -->
+            </div>
+            <div class="header-decoration">
+                <div class="decoration-circle"></div>
+                <div class="decoration-dots"></div>
             </div>
         </div>
-    </section>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="appointment-grid">
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <div class="calendar-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h2>{{ t.appointment.form.date }}</h2>
+                    </div>
+                    <div class="calendar-nav">
+                        <button id="prevMonth" class="calendar-nav-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span id="currentMonth"></span>
+                        <button id="nextMonth" class="calendar-nav-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="calendar" id="calendar"></div>
+                
+                <div class="time-slots">
+                    <div class="time-title">
+                        <i class="fas fa-clock"></i>
+                        <h3>{{ t.appointment.form.time }}</h3>
+                    </div>
+                    <div class="time-grid" id="timeSlots"></div>
+                </div>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="appointment-form">
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-user"></i>
+                        <h3>{{ t.appointment.form.personal_info }}</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">{{ t.appointment.form.name }}</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">{{ t.appointment.form.email }}</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">{{ t.appointment.form.phone }}</label>
+                        <input type="tel" id="phone" name="phone" placeholder="05XX XXX XX XX" required>
+                    </div>
+                </div>
+
+                <input type="hidden" id="selectedDate" name="date">
+                <input type="hidden" id="selectedTime" name="time">
+                
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>{{ t.appointment.form.appointment_info }}</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">{{ t.appointment.form.reason }}</label>
+                        <textarea id="reason" name="reason" rows="3" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-camera"></i>
+                        <h3>{{ t.appointment.form.photo_upload }}</h3>
+                    </div>
+                    <div class="form-group upload-group">
+                        <label for="photo" class="upload-label">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                                <span>{{ t.appointment.form.photo }}</span>
+                                <small>{{ t.appointment.form.photo_help }}</small>
+                            </div>
+                        </label>
+                        <input type="file" id="photo" name="photo" accept="image/png,image/jpeg,image/jpg,image/gif" onchange="validateFileSize(this)">
+                    </div>
+                    
+                    <div class="upload-preview">
+                        <!-- Preview content will be dynamically added here -->
+                    </div>
+                    
+                    <div class="selected-file-name">
+                        <!-- Selected file name will be dynamically added here -->
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                    <i class="fas fa-calendar-check"></i>
+                    {{ t.appointment.form.submit }}
+                </button>
+            </form>
+        </div>
+    </div>
 </main>
 {% endblock %}
 
@@ -127,7 +134,7 @@
 <style>
 :root {
     --primary: #2A9D8F;
-    --primary-light: #def2f1;
+    --primary-light: #E8F4F3;
     --primary-dark: #264653;
     --accent: #E9C46A;
     --accent-light: #F4E1B8;
@@ -137,50 +144,101 @@
     --success: #40916c;
     --error: #e63946;
     --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
 }
 
-.appointment-section {
+.appointment-page {
+    min-height: 100vh;
+    background: var(--background);
     padding: 2rem 0;
-    background: linear-gradient(135deg, var(--primary-light) 0%, white 100%);
-    min-height: calc(100vh - 60px);
+    position: relative;
+    overflow: hidden;
 }
 
-.container {
-    max-width: 1000px;
+.appointment-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 10% 20%, var(--primary-light) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, var(--accent-light) 0%, transparent 20%);
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.appointment-container {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
 }
 
-.appointment-content {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    padding: 2rem;
-    border: 1px solid rgba(42, 157, 143, 0.1);
+.appointment-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    padding: 2rem 0;
 }
 
-.back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--primary);
-    text-decoration: none;
-    margin-bottom: 2rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
+.header-content {
+    position: relative;
+    z-index: 2;
 }
 
-.back-link:hover {
-    transform: translateX(-3px);
+.appointment-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin: 1rem 0;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-.back-link i {
-    transition: transform 0.3s ease;
+.appointment-description {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
 }
 
-.back-link:hover i {
-    transform: translateX(-3px);
+.header-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.decoration-circle {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    top: -150px;
+    right: -150px;
+    opacity: 0.5;
+}
+
+.decoration-dots {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-image: radial-gradient(var(--primary) 2px, transparent 2px);
+    background-size: 20px 20px;
+    bottom: -100px;
+    left: -100px;
+    opacity: 0.2;
 }
 
 .appointment-grid {
@@ -192,20 +250,43 @@
 
 .calendar-section {
     background: white;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 2rem;
-    box-shadow: 0 4px 20px rgba(42, 157, 143, 0.08);
-    border: 1px solid rgba(42, 157, 143, 0.1);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.calendar-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient);
 }
 
 .calendar-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.calendar-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.calendar-title i {
+    font-size: 1.5rem;
+    color: var(--primary);
 }
 
 .calendar-header h2 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: var(--primary-dark);
-    margin-bottom: 1.5rem;
+    margin: 0;
     font-weight: 600;
 }
 
@@ -213,41 +294,46 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    background: var(--primary-light);
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
 }
 
 .calendar-nav-btn {
-    background: var(--primary-light);
+    background: white;
     border: none;
     color: var(--primary);
     cursor: pointer;
-    padding: 0.6rem;
-    border-radius: 8px;
+    padding: 0.8rem;
+    border-radius: var(--radius-sm);
     transition: all 0.3s ease;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: var(--shadow-sm);
 }
 
 .calendar-nav-btn:hover {
     background: var(--primary);
     color: white;
     transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 #currentMonth {
     font-weight: 600;
     color: var(--primary-dark);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .calendar-day {
@@ -255,27 +341,43 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text);
     background: white;
     transition: all 0.3s ease;
     border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.calendar-day::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-light);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.calendar-day:hover:not(.disabled)::before {
+    opacity: 0.2;
 }
 
 .calendar-day:hover:not(.disabled) {
-    background: var(--primary-light);
-    color: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .calendar-day.selected {
     background: var(--gradient);
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.2);
+    box-shadow: var(--shadow-md);
 }
 
 .calendar-day.disabled {
@@ -298,39 +400,67 @@
 }
 
 .time-slots {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+}
+
+.time-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.time-title i {
+    font-size: 1.5rem;
+    color: var(--primary);
 }
 
 .time-slots h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--primary-dark);
-    margin-bottom: 1.5rem;
+    margin: 0;
     font-weight: 600;
 }
 
 .time-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
 .time-slot {
-    padding: 0.8rem;
+    padding: 1rem;
     text-align: center;
     background: white;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text);
     transition: all 0.3s ease;
     border: 1px solid #eee;
+    position: relative;
+    overflow: hidden;
+}
+
+.time-slot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-light);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.time-slot:hover:not(.disabled)::before {
+    opacity: 0.2;
 }
 
 .time-slot:hover:not(.disabled) {
-    background: var(--primary-light);
-    color: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .time-slot.selected {
@@ -338,7 +468,7 @@
     color: white;
     border-color: transparent;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.2);
+    box-shadow: var(--shadow-md);
 }
 
 .time-slot.disabled {
@@ -350,9 +480,43 @@
 .appointment-form {
     background: white;
     padding: 2rem;
-    border-radius: 16px;
-    border: 1px solid rgba(42, 157, 143, 0.1);
-    box-shadow: 0 4px 20px rgba(42, 157, 143, 0.08);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.appointment-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient);
+}
+
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-title i {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.form-section h3 {
+    font-size: 1.3rem;
+    color: var(--primary-dark);
+    margin: 0;
+    font-weight: 600;
 }
 
 .form-row {
@@ -363,24 +527,24 @@
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     color: var(--primary-dark);
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 500;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.9rem;
+    padding: 1rem;
     border: 1px solid #eee;
-    border-radius: 10px;
-    font-size: 0.95rem;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
     transition: all 0.3s ease;
     background: var(--background);
 }
@@ -397,18 +561,49 @@
     margin-bottom: 1.5rem;
 }
 
-.upload-group label {
+.upload-label {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    padding: 1rem;
+    gap: 2rem;
+    padding: 2rem;
     background: var(--primary-light);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1rem;
     border: 2px dashed var(--primary);
     transition: all 0.3s ease;
+}
+
+.upload-icon {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+}
+
+.upload-icon i {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.upload-text {
+    text-align: left;
+}
+
+.upload-text span {
+    display: block;
     margin-bottom: 0.5rem;
+    color: var(--primary-dark);
+    font-weight: 500;
+}
+
+.upload-text small {
+    color: var(--text-light);
+    font-size: 0.9rem;
 }
 
 .upload-group input[type="file"] {
@@ -429,8 +624,8 @@
 .upload-preview img {
     max-width: 200px;
     max-height: 200px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
 }
 
 .selected-file-name {
@@ -442,19 +637,37 @@
 
 .submit-btn {
     width: 100%;
-    padding: 1rem;
+    padding: 1.2rem;
     background: var(--gradient);
     color: white;
     border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
+    border-radius: var(--radius-md);
+    font-size: 1.2rem;
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.8rem;
+    gap: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.submit-btn:hover::before {
+    transform: translateX(100%);
 }
 
 .submit-btn:not(:disabled) {
@@ -463,7 +676,7 @@
 
 .submit-btn:not(:disabled):hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(42, 157, 143, 0.3);
+    box-shadow: var(--shadow-lg);
 }
 
 .submit-btn:disabled {
@@ -479,9 +692,86 @@
     transform: translateX(4px);
 }
 
+.alert {
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+}
+
+.alert-success {
+    background: #d1fae5;
+    color: var(--success);
+    border: 1px solid #a7f3d0;
+}
+
+.alert-success::before {
+    background: var(--success);
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: var(--error);
+    border: 1px solid #fecaca;
+}
+
+.alert-error::before {
+    background: var(--error);
+}
+
+.back-link.prominent {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-dark);
+    background: var(--primary-light);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.7rem 1.3rem;
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+    z-index: 10;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.back-link.prominent:hover {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 1024px) {
+    .appointment-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
-    .appointment-content {
-        padding: 1.5rem;
+    .appointment-page {
+        padding: 1rem 0;
+    }
+
+    .appointment-container {
+        padding: 0 1rem;
+    }
+
+    .appointment-header h1 {
+        font-size: 2rem;
     }
 
     .calendar-section,
@@ -489,18 +779,48 @@
         padding: 1.5rem;
     }
 
-    .calendar-header h2,
-    .time-slots h3 {
-        font-size: 1.2rem;
-    }
-
     .time-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
     }
 
     .calendar-day,
     .time-slot {
         font-size: 0.9rem;
+    }
+
+    .upload-label {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .upload-text {
+        text-align: center;
+    }
+
+    .back-link.prominent {
+        left: 1rem;
+        top: 1rem;
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .time-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .calendar {
+        gap: 0.3rem;
+    }
+
+    .calendar-day {
+        font-size: 0.8rem;
     }
 }
 </style>
@@ -509,6 +829,9 @@
 {% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Flask'tan gelen dil bilgisini alın
+    const lang = '{{ lang }}' || 'tr';
+
     const calendar = document.getElementById('calendar');
     const timeSlots = document.getElementById('timeSlots');
     const currentMonthEl = document.getElementById('currentMonth');
@@ -520,19 +843,21 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedDate = null;
     let selectedTimeSlot = null;
 
-    // Takvimi oluştur
+    // Ay ve gün isimlerini dile göre ayarla
+    const monthNames = lang === 'en'
+        ? ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        : ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+    const dayNames = lang === 'en'
+        ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        : ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+
     function renderCalendar() {
         calendar.innerHTML = '';
         const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
         const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
         
-        // Ay adını güncelle
-        const monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 
-                          'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
         currentMonthEl.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
-        // Haftanın günleri
-        const dayNames = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
         dayNames.forEach(day => {
             const dayEl = document.createElement('div');
             dayEl.className = 'calendar-day day-name';
@@ -540,7 +865,6 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.appendChild(dayEl);
         });
 
-        // Boş günleri ekle
         let firstDayIndex = firstDay.getDay() - 1;
         if (firstDayIndex === -1) firstDayIndex = 6;
         for (let i = 0; i < firstDayIndex; i++) {
@@ -549,7 +873,6 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.appendChild(emptyDay);
         }
 
-        // Günleri ekle
         for (let day = 1; day <= lastDay.getDate(); day++) {
             const dayEl = document.createElement('div');
             dayEl.className = 'calendar-day';
@@ -572,7 +895,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Saat dilimlerini oluştur
     function renderTimeSlots(date) {
         timeSlots.innerHTML = '';
         const hours = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', 
@@ -583,7 +905,6 @@ document.addEventListener('DOMContentLoaded', function() {
             timeEl.className = 'time-slot';
             timeEl.textContent = time;
 
-            // Rastgele bazı saatleri dolu göster
             if (Math.random() > 0.7) {
                 timeEl.classList.add('disabled');
             } else {
@@ -594,14 +915,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Tarih seçimi
     function selectDate(date, element) {
         const allDays = document.querySelectorAll('.calendar-day');
         allDays.forEach(day => day.classList.remove('selected'));
         element.classList.add('selected');
         selectedDate = date;
         
-        // Tarihi YYYY-MM-DD formatında kaydet
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
@@ -611,25 +930,21 @@ document.addEventListener('DOMContentLoaded', function() {
         checkFormValidity();
     }
 
-    // Saat seçimi
     function selectTime(time, element) {
         const allTimes = document.querySelectorAll('.time-slot');
         allTimes.forEach(slot => slot.classList.remove('selected'));
         element.classList.add('selected');
         selectedTimeSlot = time;
         
-        // Saati HH:mm formatında kaydet
         selectedTimeInput.value = time.padStart(5, '0');
         
         checkFormValidity();
     }
 
-    // Form kontrolü
     function checkFormValidity() {
         submitBtn.disabled = !(selectedDate && selectedTimeSlot);
     }
 
-    // Ay navigasyonu
     document.getElementById('prevMonth').addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() - 1);
         renderCalendar();
@@ -640,14 +955,18 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCalendar();
     });
 
-    // Dosya yükleme önizlemesi
     const fileInput = document.getElementById('photo');
     const uploadGroup = document.querySelector('.upload-group');
     
     fileInput.addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
-            // Dosya adını göster
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Dosya boyutu çok büyük! Maksimum 5MB yükleyebilirsiniz.');
+                input.value = '';
+                return;
+            }
+
             let fileNameSpan = uploadGroup.querySelector('.selected-file-name');
             if (!fileNameSpan) {
                 fileNameSpan = document.createElement('span');
@@ -656,7 +975,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             fileNameSpan.textContent = file.name;
 
-            // Eğer resim dosyasıysa önizleme göster
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -674,7 +992,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Başlangıçta takvimi göster
     renderCalendar();
 });
 </script>

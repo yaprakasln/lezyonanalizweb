@@ -156,6 +156,280 @@
         .lang-btn:hover:not(.active) {
             background: rgba(42, 157, 143, 0.1);
         }
+
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.2rem 0 0.7rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .logo a {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-text {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+        }
+        .logo-subtitle {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-top: 0.2rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-top: 0.3rem;
+        }
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+        .nav-link:not(.btn-primary)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+        .nav-link:not(.btn-primary):hover::after {
+            width: 100%;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white !important;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 157, 143, 0.3);
+        }
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        .lang-btn:hover:not(.active) {
+            background: rgba(42, 157, 143, 0.1);
+        }
+        @media (max-width: 900px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+            .nav-links {
+                gap: 1.2rem;
+            }
+            .logo-text {
+                font-size: 1.2rem;
+            }
+        }
+        @media (max-width: 700px) {
+            .nav-links {
+                display: none;
+            }
+            .language-switcher {
+                margin-left: 0;
+            }
+        }
+        main, .blog-main {
+            padding-top: 100px !important;
+        }
+    </style>
+    <style>
+        /* Chatbot Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.05);
+            background: var(--primary-dark);
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .bot-message {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            background: var(--primary-dark);
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
     </style>
     
     {% block styles %}{% endblock %}
@@ -173,6 +447,30 @@
         </button>
     </div>
 
+    <header class="main-header">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <span class="logo-text">Dr. Yağmur Aslan</span>
+                    <span class="logo-subtitle">{{ t.hero.subtitle }}</span>
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="/" class="nav-link" data-translate="menu.home">Ana Sayfa</a>
+                <a href="/#about" class="nav-link" data-translate="menu.about">Hakkımızda</a>
+                <a href="/#services" class="nav-link" data-translate="menu.services">Hizmetler</a>
+                <a href="/#pricing" class="nav-link" data-translate="menu.pricing">Ücretlendirme</a>
+                <a href="/blog" class="nav-link" data-translate="menu.blog">Blog</a>
+                <a href="/#contact" class="nav-link" data-translate="menu.contact">İletişim</a>
+                <a href="/randevu" class="nav-link btn-primary" data-translate="menu.appointment">Randevu Al</a>
+            </nav>
+            <div class="language-switcher">
+                <button onclick="changeLang('tr')" class="lang-btn" data-lang="tr">TR</button>
+                <button onclick="changeLang('en')" class="lang-btn" data-lang="en">EN</button>
+            </div>
+        </div>
+    </header>
+
     {% block content %}{% endblock %}
 
     <footer>
@@ -185,6 +483,27 @@
             </div>
         </div>
     </footer>
+
+    <div class="chat-widget">
+        <button class="chat-button" onclick="toggleChat()">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <span>Dermatoloji Asistanı</span>
+                <button class="close-chat" onclick="toggleChat()">×</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    Merhaba! Ben dermatoloji asistanınızım. Size nasıl yardımcı olabilirim?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Mesajınızı yazın..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Gönder</button>
+            </div>
+        </div>
+    </div>
 
     <script>
     function changeLang(lang) {
@@ -210,6 +529,197 @@
             changeLang(preferredLang);
         }
     });
+
+    function toggleChat() {
+        const chatWindow = document.getElementById('chatWindow');
+        chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('userInput');
+        const message = input.value.trim();
+        
+        if (message) {
+            addMessage(message, 'user');
+            processUserMessage(message);
+            input.value = '';
+        }
+    }
+
+    function addMessage(text, sender) {
+        const messagesDiv = document.getElementById('chatMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+        messageDiv.textContent = text;
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    function processUserMessage(message) {
+        const lowerMessage = message.toLowerCase();
+        let response = '';
+        let followUp = '';
+
+        // Çoklu dermatolojik tanı desteği
+        const diagnoses = [
+            { keywords: ['yara', 'kızarıklık'], info: 'Ciltteki yara ve kızarıklıklar çeşitli nedenlerden kaynaklanabilir. Stres, alerjik reaksiyonlar veya egzama gibi durumlar bunlara yol açabilir.' },
+            { keywords: ['sivilce', 'akne'], info: 'Akne, ciltteki yağ bezlerinin aşırı çalışması ve gözeneklerin tıkanması sonucu oluşur. Hormonal değişiklikler, stres ve bazı kozmetik ürünler bu durumu tetikleyebilir.' },
+            { keywords: ['kaşıntı'], info: 'Kaşıntı, ciltteki sinir uçlarının uyarılması sonucu oluşan bir belirtidir. Alerjik reaksiyonlar, egzama veya kuru cilt bu duruma neden olabilir.' },
+            { keywords: ['egzama', 'dermatit'], info: 'Egzama, cildin iltihaplanmasına bağlı olarak gelişen kronik bir durumdur. Kızarıklık, kaşıntı ve kuruluk gibi belirtilerle kendini gösterir.' },
+            { keywords: ['sedef', 'psoriasis'], info: 'Sedef hastalığı, bağışıklık sisteminin etkisiyle cilt hücrelerinin hızlı yenilenmesine neden olan kronik bir durumdur. Kırmızı, pullu lekeler oluşturur.' },
+            { keywords: ['ben', 'nevüs'], info: 'Benler, ciltteki pigment hücrelerinin bir araya gelmesiyle oluşan yapılardır. Çoğu zararsız olmakla birlikte, değişim gösteren benler için dermatolojik değerlendirme önemlidir.' },
+            { keywords: ['mantar', 'fungal'], info: 'Mantar enfeksiyonları, nemli ve sıcak ortamlarda gelişen yaygın bir durumdur. Kaşıntı, kızarıklık ve pullanma gibi belirtilerle kendini gösterir.' },
+            { keywords: ['kuruluk', 'kuru cilt'], info: 'Cilt kuruluğu, çevresel faktörler, yaşlanma veya bazı cilt rahatsızlıklarından kaynaklanabilir. Düzenli nemlendirici kullanımı ve uygun cilt bakımı önemlidir.' },
+            { keywords: ['güneş', 'yanık'], info: 'Güneş yanıkları, UV ışınlarının ciltte oluşturduğu hasarlardır. Güneş koruyucu kullanımı ve uygun korunma yöntemleri önemlidir.' },
+            { keywords: ['saç dökülmesi', 'alopesi'], info: 'Saç dökülmesi, genetik faktörler, hormonal değişiklikler veya bazı sağlık durumlarından kaynaklanabilir. Erken teşhis ve tedavi önemlidir.' },
+            { keywords: ['tırnak', 'tırnak mantarı'], info: 'Tırnak mantarı, tırnaklarda renk değişikliği, kalınlaşma ve kırılganlığa neden olan bir enfeksiyondur. Erken tedavi önemlidir.' },
+            { keywords: ['rosacea', 'gül hastalığı'], info: 'Rosacea, yüzde kızarıklık ve damar genişlemesine neden olan kronik bir durumdur. Tetikleyici faktörlerin belirlenmesi ve uygun tedavi önemlidir.' },
+            { keywords: ['vitiligo', 'ala'], info: 'Vitiligo, ciltte pigment kaybına bağlı olarak gelişen beyaz lekelerle karakterize bir durumdur. Erken teşhis ve tedavi önemlidir.' },
+            { keywords: ['ürtiker', 'kurdeşen'], info: 'Ürtiker, alerjik reaksiyonlar sonucu oluşan kırmızı, kaşıntılı kabarıklıklarla karakterize bir durumdur. Tetikleyici faktörlerin belirlenmesi önemlidir.' }
+        ];
+        let foundDiagnoses = [];
+        diagnoses.forEach(d => {
+            d.keywords.forEach(k => {
+                if (lowerMessage.includes(k) && !foundDiagnoses.includes(d.info)) {
+                    foundDiagnoses.push(d.info);
+                }
+            });
+        });
+        if (foundDiagnoses.length > 0) {
+            response = foundDiagnoses.join('\n\n');
+            followUp = 'Belirttiğiniz durumlar için detaylı değerlendirme ve tedavi için bir dermatoloğa başvurmanız önerilir.';
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+                setTimeout(() => {
+                    addMessage(followUp, 'bot');
+                }, 1000);
+            }, 500);
+        }
+
+        // Genel soru/istek ifadeleri için kontrol
+        if ((lowerMessage.includes('sorum') || lowerMessage.includes('yardım') || lowerMessage.includes('danışmak') || lowerMessage.includes('bir şey sormak') || lowerMessage.includes('bir sorum var') || lowerMessage.includes('yardım isterim')) &&
+            !(lowerMessage.includes('ben '))) {
+            response = 'Elbette, size yardımcı olmaktan memnuniyet duyarım. Lütfen cilt sağlığınızla ilgili sorununuzu veya şikayetinizi daha detaylı şekilde yazar mısınız?';
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+            }, 500);
+        }
+
+        // Doktor hakkında bilgi
+        if (lowerMessage.includes('yağmur aslan') || lowerMessage.includes('doktorunuz kim') || lowerMessage.includes('doktor kimdir') || lowerMessage.includes('doktor hakkında bilgi') || lowerMessage.includes('uzmanlık alanı nedir') || lowerMessage.includes('hangi okulu bitirdi') || lowerMessage.includes('eğitim durumu') || lowerMessage.includes('deneyim') || lowerMessage.includes('özgeçmiş') || lowerMessage.includes('kaç yıldır çalışıyor') || lowerMessage.includes('kaç yıl')) {
+            response = 'Dr. Yağmur Aslan, İstanbul Üniversitesi İstanbul Tıp Fakültesi\'nden mezun olmuştur. Dermatoloji uzmanlık eğitimini yine İstanbul Üniversitesi\'nde tamamlamıştır. 2012 yılından bu yana dermatoloji alanında aktif olarak çalışmaktadır ve 12 yılı aşkın klinik deneyime sahiptir. Kariyeri boyunca çeşitli devlet ve özel hastanelerde görev almış, yurt içi ve yurt dışında birçok dermatoloji kongresine katılmıştır. Özellikle cilt hastalıkları, kozmetik dermatoloji, deri kanserleri, alerjik cilt hastalıkları ve çocuk dermatolojisi alanlarında uzmandır. Türk Dermatoloji Derneği ve Avrupa Dermatoloji Akademisi (EADV) üyesidir. Çeşitli bilimsel makaleleri ve kitap bölümleri yayımlanmıştır. Hastalarına güncel, bilimsel ve etik ilkelere uygun şekilde hizmet vermektedir. Yabancı dil olarak İngilizce bilmektedir.';
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+            }, 500);
+        }
+
+        // Şikayet süresiyle ilgili akıllı yanıtlar
+        const sureRegex = /(\d+)\s*(gün|hafta|ay|yıl|senedir|gündür|haftadır|aydır|yıldır|senedir)/;
+        const yeniBasladiRegex = /(yeni başladı|yeni basladi|daha yeni|bugün|bu sabah|az önce)/;
+        let sureMatch = lowerMessage.match(sureRegex);
+        let yeniBasladiMatch = lowerMessage.match(yeniBasladiRegex);
+        if (sureMatch) {
+            let sure = sureMatch[1];
+            let birim = sureMatch[2];
+            if (birim.startsWith('gün')) {
+                response = `${sure} gündür devam eden şikayetlerde, eğer belirtiler hafifse genellikle kısa süreli tahriş veya geçici bir durum olabilir. Ancak şikayetleriniz artarsa veya geçmezse dermatoloğa başvurmanız önerilir.`;
+            } else if (birim.startsWith('hafta')) {
+                response = `${sure} haftadır devam eden cilt şikayetlerinde, altta yatan bir enfeksiyon, alerji veya kronik bir durum olabilir. Uzun süren şikayetler için dermatolojik değerlendirme önemlidir.`;
+            } else if (birim.startsWith('ay')) {
+                response = `${sure} aydır devam eden cilt sorunları kronikleşmiş olabilir. Mutlaka bir dermatoloğa başvurmanızı öneririm.`;
+            } else if (birim.startsWith('yıl') || birim.startsWith('sene')) {
+                response = `${sure} yıldır devam eden cilt şikayetleri için detaylı bir dermatolojik muayene gereklidir. Lütfen randevu alarak uzman görüşü alın.`;
+            }
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+            }, 500);
+        } else if (yeniBasladiMatch) {
+            response = 'Şikayetiniz yeni başladıysa, ciltteki değişiklikleri gözlemlemeye devam edin. Eğer şikayetleriniz ilerlerse veya ek bulgular ortaya çıkarsa dermatoloğa başvurmanız faydalı olacaktır.';
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+            }, 500);
+        }
+
+        // Genel dermatolojik sorunlar kontrolü
+        if (lowerMessage.includes('dermatolojik') || lowerMessage.includes('cilt sorunları') || 
+            lowerMessage.includes('cilt hastalıkları') || lowerMessage.includes('cilt problemleri')) {
+            response = 'Dermatolojik sorunlar genellikle şu kategorilerde değerlendirilir:\n\n' +
+                      '1. İltihabi Durumlar:\n' +
+                      '   - Akne (Sivilce)\n' +
+                      '   - Egzama (Dermatit)\n' +
+                      '   - Sedef Hastalığı\n' +
+                      '   - Rosacea (Gül Hastalığı)\n\n' +
+                      '2. Enfeksiyonlar:\n' +
+                      '   - Mantar Enfeksiyonları\n' +
+                      '   - Bakteriyel Enfeksiyonlar\n' +
+                      '   - Viral Enfeksiyonlar\n\n' +
+                      '3. Alerjik Reaksiyonlar:\n' +
+                      '   - Ürtiker (Kurdeşen)\n' +
+                      '   - Kontakt Dermatit\n' +
+                      '   - Atopik Dermatit\n\n' +
+                      '4. Pigmentasyon Bozuklukları:\n' +
+                      '   - Vitiligo\n' +
+                      '   - Melazma\n' +
+                      '   - Benler\n\n' +
+                      '5. Saç ve Tırnak Sorunları:\n' +
+                      '   - Saç Dökülmesi\n' +
+                      '   - Tırnak Mantarı\n' +
+                      '   - Tırnak Deformiteleri\n\n' +
+                      '6. Yaşlanma ve Çevresel Etkiler:\n' +
+                      '   - Güneş Hasarı\n' +
+                      '   - Cilt Kuruluğu\n' +
+                      '   - Kırışıklıklar\n\n' +
+                      'Her durumun kendine özgü belirtileri ve tedavi yöntemleri vardır. Doğru teşhis ve tedavi için dermatoloğunuza başvurmanız önemlidir.';
+            
+            followUp = 'Hangi kategori hakkında daha detaylı bilgi almak istersiniz?';
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+                setTimeout(() => {
+                    addMessage(followUp, 'bot');
+                }, 1000);
+            }, 500);
+        }
+
+        // Selamlaşma kontrolü
+        if (lowerMessage.includes('merhaba') || lowerMessage.includes('selam') || lowerMessage.includes('nasılsın')) {
+            response = 'Merhaba, ben dermatoloji asistanınızım. Cilt sağlığınızla ilgili sorularınızı yanıtlamak için buradayım.';
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+            }, 500);
+        }
+
+        // Teşekkür kontrolü
+        if (lowerMessage.includes('teşekkür') || lowerMessage.includes('sağol') || lowerMessage.includes('eyvallah')) {
+            response = 'Rica ederim. Başka bir sorunuz olursa yardımcı olmaktan memnuniyet duyarım.';
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+            }, 500);
+        }
+
+        // Veda kontrolü
+        if (lowerMessage.includes('hoşça kal') || lowerMessage.includes('görüşürüz') || lowerMessage.includes('bye')) {
+            response = 'İyi günler dilerim. Sağlıklı günler!';
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+            }, 500);
+        }
+
+        // İlk yanıtı gönder
+        setTimeout(() => {
+            addMessage(response, 'bot');
+            
+            // Takip sorusunu gönder
+            setTimeout(() => {
+                addMessage(followUp, 'bot');
+            }, 1000);
+        }, 500);
+    }
     </script>
 
     {% block scripts %}{% endblock %}

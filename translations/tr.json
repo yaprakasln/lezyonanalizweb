@@ -16,18 +16,32 @@
     "services": {
         "title": "Hizmetlerimiz",
         "subtitle": "Size sunduğumuz dermatolojik tedavi ve bakım hizmetleri",
-        "acne": "Akne Tedavisi",
-        "acne_desc": "Akne ve sivilce tedavisinde uzman kadromuzla yanınızdayız.",
-        "pigmentation": "Leke Tedavisi",
-        "pigmentation_desc": "Leke ve pigmentasyon tedavisinde etkili çözümler.",
-        "botox": "Botoks ve Dolgu",
-        "botox_desc": "Botoks ve dolgu uygulamalarında güvenilir hizmet.",
-        "laser": "Lazer Epilasyon",
-        "laser_desc": "Modern lazer teknolojisi ile epilasyon hizmeti.",
-        "skincare": "Cilt Bakımı",
-        "skincare_desc": "Profesyonel cilt bakımı ve tedavi hizmetleri.",
-        "prp": "PRP Tedavisi",
-        "prp_desc": "PRP tedavisi ile doğal gençleşme.",
+        "treatments": {
+            "acne": {
+                "title": "Akne Tedavisi",
+                "desc": "Akne tedavisinde, hastanın cilt tipine ve akne şiddetine göre özelleştirilmiş bir yaklaşım izlenir. Topikal ilaçlar, antibiyotikler, kimyasal peelingler ve bazı durumlarda lazer uygulamaları tercih edilebilir."
+            },
+            "pigmentation": {
+                "title": "Leke Tedavisi",
+                "desc": "Ciltteki lekelerin giderilmesi için lazer, kimyasal peeling ve medikal tedaviler uygulanır."
+            },
+            "botox": {
+                "title": "Botoks ve Dolgu",
+                "desc": "Yüz gençleştirme ve kırışıklık giderme için botoks ve dolgu uygulamaları."
+            },
+            "laser": {
+                "title": "Lazer Epilasyon",
+                "desc": "Modern lazer teknolojisi ile kalıcı epilasyon çözümleri."
+            },
+            "skincare": {
+                "title": "Cilt Bakımı",
+                "desc": "Profesyonel cilt bakımı ve medikal tedavi hizmetleri."
+            },
+            "prp": {
+                "title": "PRP Tedavisi",
+                "desc": "Kendi kanınızdan elde edilen trombositler ile doğal gençleşme."
+            }
+        },
         "learn_more": "Detaylı Bilgi"
     },
     "about": {
@@ -37,25 +51,7 @@
         "mission": "Misyonumuz",
         "mission_text": "Her hastamıza özel, bilimsel ve etik değerler ışığında en iyi dermatolojik tedaviyi sunmak.",
         "vision": "Vizyonumuz",
-        "vision_text": "Dermatoloji alanında yenilikçi yaklaşımlar ve hasta memnuniyeti odaklı hizmet anlayışıyla öncü olmak.",
-        "evaluations": "Değerlendirmeler",
-        "testimonials": [
-            {
-                "name": "Ayşe Y.",
-                "comment": "Dr. Yağmur Hanım'ın profesyonel yaklaşımı ve tedavi sürecindeki ilgisi sayesinde cilt problemlerim çözüldü.",
-                "rating": 5
-            },
-            {
-                "name": "Mehmet K.",
-                "comment": "Modern klinik ortamı ve uzman kadrosuyla çok memnun kaldım. Kesinlikle tavsiye ediyorum.",
-                "rating": 5
-            },
-            {
-                "name": "Zeynep A.",
-                "comment": "Akne tedavimde gösterdiği özen ve başarılı sonuçlar için çok teşekkür ederim.",
-                "rating": 5
-            }
-        ]
+        "vision_text": "Dermatoloji alanında yenilikçi yaklaşımlar ve hasta memnuniyeti odaklı hizmet anlayışıyla öncü olmak."
     },
     "contact": {
         "title": "İletişim",
@@ -93,5 +89,35 @@
         "invalid_file_format": "Desteklenmeyen dosya formatı. Lütfen PNG, JPG, JPEG veya GIF formatında bir dosya yükleyin.",
         "db_error": "Randevu kaydedilirken bir hata oluştu.",
         "general_error": "Randevu oluşturulurken bir hata oluştu."
+    },
+    "faq": {
+        "title": "Sık Sorulan Sorular (SSS)",
+        "q1": "İlk muayeneye gelirken neler getirmeliyim?",
+        "a1": "Kimlik belgenizi, varsa önceki tahlil ve raporlarınızı, düzenli kullandığınız ilaçların listesini getirmeniz faydalı olacaktır.",
+        "q2": "Sigorta geçerli mi?",
+        "a2": "Klinikte SGK ve özel sağlık sigortaları geçerli değildir. Ödeme işlemleri nakit veya kredi kartı ile yapılabilmektedir.",
+        "q3": "Tedavi süreci ne kadar sürer?",
+        "a3": "Tedavi süresi, uygulanacak yönteme ve hastanın ihtiyacına göre değişiklik gösterir. Genellikle ilk seanstan itibaren 2-6 hafta arasında gözle görülür sonuçlar alınır.",
+        "q4": "Basit sağlık tavsiyeleri",
+        "tips": {
+            "1": "Cildinizi düzenli olarak nemlendirin.",
+            "2": "Her gün güneş koruyucu kullanın.",
+            "3": "Bol su için ve dengeli beslenin.",
+            "4": "Cilt tipinize uygun ürünler tercih edin.",
+            "5": "Şüpheli lezyonlarda mutlaka dermatoloğa başvurun."
+        }
+    },
+    "pricing": {
+        "title": "Ücretlendirme",
+        "subtitle": "Tedavi ücretlerimiz hakkında bilgi almak için lütfen iletişime geçiniz.",
+        "note": "Ücretlendirme, tedavi türüne ve seans sayısına göre değişiklik göstermektedir. Detaylı bilgi için randevu alabilirsiniz.",
+        "treatments": {
+            "acne": "Akne Tedavisi",
+            "pigmentation": "Leke Tedavisi",
+            "botox": "Botoks ve Dolgu",
+            "laser": "Lazer Epilasyon",
+            "skincare": "Cilt Bakımı",
+            "prp": "PRP Tedavisi"
+        }
     }
 } 

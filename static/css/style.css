@@ -158,6 +158,39 @@ body {
     margin-right: 1rem;
 }
 
+.about-content-wrapper {
+    flex: 1;
+}
+
+.about-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(42, 157, 143, 0.15);
+}
+
+.about-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.about-icon i {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
 /* Services Section */
 .services {
     padding: 5rem 0;
@@ -242,7 +275,8 @@ body {
 
 /* Contact Section */
 .contact {
-    padding: 5rem 0;
+    padding: 6rem 0;
+    background: white;
 }
 
 .contact-content {
@@ -437,5 +471,121 @@ body {
 
     .hero h2 {
         font-size: 1.2rem;
+    }
+}
+
+.contact-card a:hover {
+    color: var(--primary);
+}
+
+.pricing-section {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.pricing-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+}
+
+.pricing-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.pricing-header h3 {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pricing-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.pricing-table td:last-child {
+    text-align: right;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.pricing-note {
+    margin-top: 30px;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.pricing-note p {
+    margin: 5px 0;
+}
+
+.faq-section {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
+}
+.faq-list {
+    max-width: 900px;
+    margin: 3rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.faq-item {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    padding: 2rem 2.5rem;
+    transition: box-shadow 0.3s;
+}
+.faq-item:hover {
+    box-shadow: 0 8px 30px rgba(42, 157, 143, 0.13);
+}
+.faq-question {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+.faq-answer {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+.health-tips {
+    margin: 0.5rem 0 0 1.2rem;
+    padding: 0;
+    list-style: disc;
+    color: var(--primary-dark);
+    font-size: 1rem;
+}
+@media (max-width: 768px) {
+    .faq-item {
+        padding: 1.2rem 1rem;
+    }
+    .faq-list {
+        gap: 1.2rem;
     }
 } 

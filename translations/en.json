@@ -13,13 +13,35 @@
         "cta_services": "Our Services"
     },
     "services": {
-        "title": "Dermatological Treatments",
-        "acne": "Acne Treatment",
-        "pigmentation": "Pigmentation Treatment",
-        "botox": "Botox & Fillers",
-        "laser": "Laser Hair Removal",
-        "skincare": "Medical Skin Care",
-        "prp": "PRP Treatment"
+        "title": "Our Services",
+        "subtitle": "Dermatological treatment and care services we offer",
+        "treatments": {
+            "acne": {
+                "title": "Acne Treatment",
+                "desc": "In acne treatment, a customized approach is followed according to the patient's skin type and acne severity. Topical medications, antibiotics, chemical peels, and in some cases, laser applications may be preferred."
+            },
+            "pigmentation": {
+                "title": "Pigmentation Treatment",
+                "desc": "Laser, chemical peels, and medical treatments are applied to remove skin spots."
+            },
+            "botox": {
+                "title": "Botox & Fillers",
+                "desc": "Botox and filler applications for facial rejuvenation and wrinkle reduction."
+            },
+            "laser": {
+                "title": "Laser Hair Removal",
+                "desc": "Permanent hair removal solutions with modern laser technology."
+            },
+            "skincare": {
+                "title": "Medical Skin Care",
+                "desc": "Professional skin care and medical treatment services."
+            },
+            "prp": {
+                "title": "PRP Treatment",
+                "desc": "Natural rejuvenation with platelets derived from your own blood."
+            }
+        },
+        "learn_more": "Learn More"
     },
     "about": {
         "title": "About Us",
@@ -79,5 +101,35 @@
         "invalid_file_format": "Unsupported file format. Please upload a PNG, JPG, JPEG, or GIF file.",
         "db_error": "An error occurred while saving the appointment.",
         "general_error": "An error occurred while creating the appointment."
+    },
+    "faq": {
+        "title": "Frequently Asked Questions (FAQ)",
+        "q1": "What should I bring to my first appointment?",
+        "a1": "Please bring your ID, any previous test results or reports, and a list of medications you regularly use.",
+        "q2": "Is insurance accepted?",
+        "a2": "SGK and private health insurances are not accepted at the clinic. Payments can be made by cash or credit card.",
+        "q3": "How long does the treatment process take?",
+        "a3": "The duration of treatment varies depending on the method applied and the patient's needs. Noticeable results are usually seen within 2-6 weeks after the first session.",
+        "q4": "Basic health tips",
+        "tips": {
+            "1": "Moisturize your skin regularly.",
+            "2": "Use sunscreen every day.",
+            "3": "Drink plenty of water and eat a balanced diet.",
+            "4": "Choose products suitable for your skin type.",
+            "5": "Consult a dermatologist for suspicious lesions."
+        }
+    },
+    "pricing": {
+        "title": "Pricing",
+        "subtitle": "Please contact us for information about our treatment fees.",
+        "note": "Pricing varies depending on the type of treatment and number of sessions. You can make an appointment for detailed information.",
+        "treatments": {
+            "acne": "Acne Treatment",
+            "pigmentation": "Pigmentation Treatment",
+            "botox": "Botox & Fillers",
+            "laser": "Laser Hair Removal",
+            "skincare": "Medical Skin Care",
+            "prp": "PRP Treatment"
+        }
     }
 } 

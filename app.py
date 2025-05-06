@@ -58,6 +58,11 @@ def about():
 def contact():
     return render_template('iletisim.html')
 
+@app.route('/blog')
+def blog():
+    translations = get_translations(session.get('lang', 'tr'))
+    return render_template('blog.html', t=translations)
+
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -87,7 +92,7 @@ def randevu():
             # Telefon numarasını formatla
             formatted_phone = validate_phone(phone)
             if not formatted_phone:
-                flash(translations['invalid_phone'], 'error')
+                flash(translations.get('invalid_phone', 'Geçersiz telefon numarası formatı.'), 'error')
                 return redirect(url_for('randevu'))
             
             # Benzersiz randevu ID'si oluştur
@@ -102,7 +107,7 @@ def randevu():
                 if photo.filename != '':
                     # Dosya boyutu kontrolü (5MB)
                     if len(photo.read()) > 5 * 1024 * 1024:
-                        flash(translations['file_too_large'], 'error')
+                        flash(translations.get('file_too_large', 'Dosya boyutu çok büyük. Maksimum 5MB boyutunda dosya yükleyebilirsiniz.'), 'error')
                         return redirect(url_for('randevu'))
                     photo.seek(0)
                     
@@ -112,9 +117,9 @@ def randevu():
                         photo_base64 = base64.b64encode(photo.read()).decode('utf-8')
                         has_photos = True
                     else:
-                        flash(translations['invalid_file_format'], 'error')
+                        flash(translations.get('invalid_file_format', 'Desteklenmeyen dosya formatı. Lütfen PNG, JPG, JPEG veya GIF formatında bir dosya yükleyin.'), 'error')
                         return redirect(url_for('randevu'))
-
+                    
             current_timestamp = datetime.now().timestamp()
             
             appointment_data = {
@@ -150,19 +155,19 @@ def randevu():
                 print(f"Randevu başarıyla kaydedildi: {appointment_id}")
                 print(f"Fotoğraf durumu: hasPhotos={has_photos}")
                 
-                flash(translations['appointment_success'], 'success')
+                flash(translations.get('appointment_success', 'Randevunuz başarıyla oluşturuldu.'), 'success')
                 return redirect(url_for('randevu'))
                 
             except Exception as db_error:
                 print(f"Veritabanı hatası: {str(db_error)}")
-                flash(translations['db_error'], 'error')
+                flash(translations.get('db_error', 'Randevu kaydedilirken bir hata oluştu.'), 'error')
                 return redirect(url_for('randevu'))
-                
+            
         except Exception as e:
             print(f"Hata: {str(e)}")
-            flash(translations['general_error'], 'error')
+            flash(translations.get('general_error', 'Randevu oluşturulurken bir hata oluştu.'), 'error')
             return redirect(url_for('randevu'))
-            
+    
     return render_template('randevu.html', lang=session.get('lang', 'tr'), t=translations)
 
 if __name__ == '__main__':

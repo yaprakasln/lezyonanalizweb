@@ -10,14 +10,16 @@
                 <span class="logo-text">Dr. Yağmur Aslan</span>
                 <span class="logo-subtitle">{{ t.hero.subtitle }}</span>
             </a>
-        </div>
+            </div>
         <nav class="nav-links">
             <a href="/" class="nav-link" data-translate="menu.home">Ana Sayfa</a>
             <a href="#about" class="nav-link" data-translate="menu.about">Hakkımızda</a>
             <a href="#services" class="nav-link" data-translate="menu.services">Hizmetler</a>
+            <a href="#pricing" class="nav-link" data-translate="menu.pricing">Ücretlendirme</a>
+            <a href="/blog" class="nav-link" data-translate="menu.blog">Blog</a>
             <a href="#contact" class="nav-link" data-translate="menu.contact">İletişim</a>
             <a href="/randevu" class="nav-link btn-primary" data-translate="menu.appointment">Randevu Al</a>
-        </nav>
+    </nav>
         <div class="language-switcher">
             <button onclick="changeLang('tr')" class="lang-btn" data-lang="tr">TR</button>
             <button onclick="changeLang('en')" class="lang-btn" data-lang="en">EN</button>
@@ -36,26 +38,26 @@
             {% for i in range(10) %}
             <div class="hexagon" style="left: {{ range(0, 100)|random }}%; animation-delay: {{ range(0, 10)|random }}s;"></div>
             {% endfor %}
-        </div>
+                    </div>
         
         <div class="dna-animation">
             {% for i in range(20) %}
             <div class="dna-strand" style="top: {{ i * 20 }}px; animation-delay: {{ i * 0.2 }}s;"></div>
             {% endfor %}
-        </div>
+                        </div>
         
         <div class="pulse-rings">
             {% for i in range(3) %}
             <div class="ring" style="left: 30%; top: 50%; animation-delay: {{ i * 1.3 }}s;"></div>
             <div class="ring" style="left: 70%; top: 30%; animation-delay: {{ i * 1.3 + 0.6 }}s;"></div>
             {% endfor %}
-        </div>
+                        </div>
         
         <div class="molecules">
             {% for i in range(15) %}
             <div class="molecule" style="left: {{ range(0, 100)|random }}%; top: {{ range(0, 100)|random }}%; animation-delay: {{ range(0, 10)|random }}s;"></div>
             {% endfor %}
-        </div>
+                        </div>
         
         <div class="hero-container">
             <div class="hero-content">
@@ -74,9 +76,9 @@
                         <span data-translate="menu.appointment">Randevu Al</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-image">
+                <div class="hero-image">
                 <img src="{{ url_for('static', filename='images/ai-skin-analysis.jpg') }}" alt="Dr. Yağmur Aslan Dermatoloji" class="feature-image">
             </div>
         </div>
@@ -84,86 +86,170 @@
 
     <section id="services" class="services-section">
         <div class="container">
-            <h2 class="section-title">{{ t.services.title }}</h2>
+            <h2 class="section-title" data-translate="services.title">{{ t.services.title }}</h2>
+            <p class="section-subtitle" data-translate="services.subtitle">{{ t.services.subtitle }}</p>
             <div class="services-grid">
                 <div class="service-card" data-service="acne">
                     <div class="service-icon">
                         <i class="fas fa-user-md"></i>
-                    </div>
-                    <h3 data-translate="services.treatments.acne.title">Akne Tedavisi</h3>
+                            </div>
+                    <h3 data-translate="services.treatments.acne.title">{{ t.services.treatments.acne.title }}</h3>
                     <div class="service-details">
-                        <p data-translate="services.treatments.acne.desc">Akne tedavisinde, hastanın cilt tipine ve akne şiddetine göre özelleştirilmiş bir yaklaşım izlenir. Topikal ilaçlar, antibiyotikler, kimyasal peelingler ve bazı durumlarda lazer uygulamaları tercih edilebilir.</p>
-                </div>
+                        <p data-translate="services.treatments.acne.desc">{{ t.services.treatments.acne.desc }}</p>
+                            </div>
                     <div class="service-link">
-                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
+                        <span data-translate="services.learn_more">{{ t.services.learn_more }}</span>
                         <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
+                            </div>
+                            </div>
                 <div class="service-card" data-service="pigmentation">
                     <div class="service-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3 data-translate="services.treatments.pigmentation.title">Pigmentasyon Tedavisi</h3>
+                        <i class="fas fa-spa"></i>
+                            </div>
+                    <h3 data-translate="services.treatments.pigmentation.title">{{ t.services.treatments.pigmentation.title }}</h3>
                     <div class="service-details">
-                        <p data-translate="services.treatments.pigmentation.desc">Pigment lekeleri genellikle güneş hasarı, hormonal değişiklikler veya cilt travmaları sonrası oluşur. Leke tedavisinde kimyasal peeling, lazer uygulamaları ve cilt tonu dengeleyici medikal ürünler kullanılır.</p>
-                </div>
+                        <p data-translate="services.treatments.pigmentation.desc">{{ t.services.treatments.pigmentation.desc }}</p>
+                            </div>
                     <div class="service-link">
-                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
+                        <span data-translate="services.learn_more">{{ t.services.learn_more }}</span>
                         <i class="fas fa-chevron-down"></i>
-                    </div>
                 </div>
+            </div>
                 <div class="service-card" data-service="botox">
                     <div class="service-icon">
                         <i class="fas fa-syringe"></i>
-                    </div>
-                    <h3 data-translate="services.treatments.botox.title">Botoks ve Dolgu</h3>
+        </div>
+                    <h3 data-translate="services.treatments.botox.title">{{ t.services.treatments.botox.title }}</h3>
                     <div class="service-details">
-                        <p data-translate="services.treatments.botox.desc">Botoks, mimik kaslarını geçici olarak durdurarak kırışıklıkların görünümünü azaltır. Dolgu uygulamaları ise hacim kaybı yaşanan bölgelerde cildin dolgun ve genç görünmesini sağlar.</p>
-                </div>
-                    <div class="service-link">
-                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <p data-translate="services.treatments.botox.desc">{{ t.services.treatments.botox.desc }}</p>
                     </div>
+                    <div class="service-link">
+                        <span data-translate="services.learn_more">{{ t.services.learn_more }}</span>
+                        <i class="fas fa-chevron-down"></i>
                 </div>
+                    </div>
                 <div class="service-card" data-service="laser">
                     <div class="service-icon">
-                        <i class="fas fa-laser-pointer"></i>
-                    </div>
-                    <h3 data-translate="services.treatments.laser.title">Lazer Epilasyon</h3>
+                        <i class="fas fa-bolt"></i>
+                </div>
+                    <h3 data-translate="services.treatments.laser.title">{{ t.services.treatments.laser.title }}</h3>
                     <div class="service-details">
-                        <p data-translate="services.treatments.laser.desc">Lazer epilasyon, istenmeyen tüylerden kalıcı olarak kurtulmanın en etkili yollarından biridir. Cilt ve kıl tipine uygun lazer teknolojisiyle, kıl kökleri hedef alınarak yok edilir.</p>
-                </div>
-                    <div class="service-link">
-                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <p data-translate="services.treatments.laser.desc">{{ t.services.treatments.laser.desc }}</p>
                     </div>
+                    <div class="service-link">
+                        <span data-translate="services.learn_more">{{ t.services.learn_more }}</span>
+                        <i class="fas fa-chevron-down"></i>
                 </div>
+                    </div>
                 <div class="service-card" data-service="skincare">
                     <div class="service-icon">
-                        <i class="fas fa-spa"></i>
-                    </div>
-                    <h3 data-translate="services.treatments.skincare.title">Medikal Cilt Bakımı</h3>
+                        <i class="fas fa-heart"></i>
+                </div>
+                    <h3 data-translate="services.treatments.skincare.title">{{ t.services.treatments.skincare.title }}</h3>
                     <div class="service-details">
-                        <p data-translate="services.treatments.skincare.desc">Medikal cilt bakımı; gözenek temizliği, nem dengesi sağlama, ölü derilerden arındırma ve kolajen üretimini destekleme amaçlı profesyonel bir uygulamadır.</p>
-                </div>
-                    <div class="service-link">
-                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <p data-translate="services.treatments.skincare.desc">{{ t.services.treatments.skincare.desc }}</p>
                     </div>
+                    <div class="service-link">
+                        <span data-translate="services.learn_more">{{ t.services.learn_more }}</span>
+                        <i class="fas fa-chevron-down"></i>
                 </div>
+                    </div>
                 <div class="service-card" data-service="prp">
                     <div class="service-icon">
-                        <i class="fas fa-tint"></i>
-                    </div>
-                    <h3 data-translate="services.treatments.prp.title">PRP Tedavisi</h3>
+                        <i class="fas fa-vial"></i>
+                </div>
+                    <h3 data-translate="services.treatments.prp.title">{{ t.services.treatments.prp.title }}</h3>
                     <div class="service-details">
-                        <p data-translate="services.treatments.prp.desc">PRP (Platelet Rich Plasma), kişinin kendi kanından elde edilen platelet yönünden zengin plazmanın cilt altına enjekte edilmesiyle yapılır. Hücre yenilenmesini destekler, ince kırışıklıkları azaltır.</p>
+                        <p data-translate="services.treatments.prp.desc">{{ t.services.treatments.prp.desc }}</p>
                     </div>
                     <div class="service-link">
-                        <span data-translate="services.learn_more">Detaylı Bilgi</span>
+                        <span data-translate="services.learn_more">{{ t.services.learn_more }}</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="pricing.title">{{ t.pricing.title }}</h2>
+            <p class="section-subtitle" data-translate="pricing.subtitle">{{ t.pricing.subtitle }}</p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 data-translate="pricing.treatments.acne">Akne Tedavisi</h3>
+                    </div>
+                    <table class="pricing-table">
+                        <tr><td data-translate="pricing.acne.analysis">Cilt Analizi ve Muayene</td><td>₺500</td></tr>
+                        <tr><td data-translate="pricing.acne.topical">Topikal İlaç Tedavisi</td><td>₺1.000 - ₺1.500</td></tr>
+                        <tr><td data-translate="pricing.acne.peeling1">Kimyasal Peeling (Tek Seans)</td><td>₺1.200</td></tr>
+                        <tr><td data-translate="pricing.acne.peeling4">Kimyasal Peeling (4 Seans Paket)</td><td>₺4.000</td></tr>
+                        <tr><td data-translate="pricing.acne.laser">Lazer Tedavisi (Tek Seans)</td><td>₺1.500</td></tr>
+                    </table>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 data-translate="pricing.treatments.pigmentation">Pigmentasyon Tedavisi</h3>
+                    </div>
+                    <table class="pricing-table">
+                        <tr><td data-translate="pricing.pigmentation.analysis">Leke Analizi ve Muayene</td><td>₺500</td></tr>
+                        <tr><td data-translate="pricing.pigmentation.laser1">Lazer Tedavisi (Tek Seans)</td><td>₺1.800</td></tr>
+                        <tr><td data-translate="pricing.pigmentation.laser6">Lazer Tedavisi (6 Seans Paket)</td><td>₺9.500</td></tr>
+                        <tr><td data-translate="pricing.pigmentation.peeling">Kimyasal Peeling (Tek Seans)</td><td>₺1.200</td></tr>
+                        <tr><td data-translate="pricing.pigmentation.medical">Medikal Ürün Tedavisi</td><td>₺1.000 - ₺2.000</td></tr>
+                    </table>
+                </div>
+                <div class="pricing-card most-popular">
+                    <div class="pricing-header">
+                        <h3 data-translate="pricing.treatments.botox">Botoks ve Dolgu</h3>
+                    </div>
+                    <table class="pricing-table">
+                        <tr><td data-translate="pricing.botox.region">Botoks (Bölge Başı)</td><td>₺2.000</td></tr>
+                        <tr><td data-translate="pricing.botox.full">Botoks (Tüm Yüz)</td><td>₺5.000</td></tr>
+                        <tr><td data-translate="pricing.botox.filler1">Dolgu (1cc)</td><td>₺3.000</td></tr>
+                        <tr><td data-translate="pricing.botox.filler2">Dolgu (2cc)</td><td>₺5.500</td></tr>
+                        <tr><td data-translate="pricing.botox.control">Kontrol Muayenesi</td><td data-translate="pricing.free">Ücretsiz</td></tr>
+                    </table>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 data-translate="pricing.treatments.laser">Lazer Epilasyon</h3>
+                    </div>
+                    <table class="pricing-table">
+                        <tr><td data-translate="pricing.laser.analysis">Cilt Analizi ve Muayene</td><td>₺500</td></tr>
+                        <tr><td data-translate="pricing.laser.small1">Tek Seans (Küçük Bölge)</td><td>₺500</td></tr>
+                        <tr><td data-translate="pricing.laser.large1">Tek Seans (Büyük Bölge)</td><td>₺1.200</td></tr>
+                        <tr><td data-translate="pricing.laser.small6">6 Seans Paket (Küçük Bölge)</td><td>₺2.500</td></tr>
+                        <tr><td data-translate="pricing.laser.large6">6 Seans Paket (Büyük Bölge)</td><td>₺6.000</td></tr>
+                    </table>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 data-translate="pricing.treatments.skincare">Medikal Cilt Bakımı</h3>
+                    </div>
+                    <table class="pricing-table">
+                        <tr><td data-translate="pricing.skincare.analysis">Detaylı Cilt Analizi</td><td>₺500</td></tr>
+                        <tr><td data-translate="pricing.skincare.care1">Medikal Cilt Bakımı (Tek Seans)</td><td>₺1.000</td></tr>
+                        <tr><td data-translate="pricing.skincare.care4">Medikal Cilt Bakımı (4 Seans Paket)</td><td>₺3.500</td></tr>
+                        <tr><td data-translate="pricing.skincare.program">Bakım Programı</td><td>₺1.000</td></tr>
+                    </table>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 data-translate="pricing.treatments.prp">PRP Tedavisi</h3>
+                    </div>
+                    <table class="pricing-table">
+                        <tr><td data-translate="pricing.prp.session1">PRP (Tek Seans)</td><td>₺2.000</td></tr>
+                        <tr><td data-translate="pricing.prp.session3">PRP (3 Seans Paket)</td><td>₺5.500</td></tr>
+                        <tr><td data-translate="pricing.prp.session6">PRP (6 Seans Paket)</td><td>₺10.000</td></tr>
+                        <tr><td data-translate="pricing.prp.control">Kontrol Muayenesi</td><td data-translate="pricing.free">Ücretsiz</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="pricing-note">
+                <p data-translate="pricing.note1">* Fiyatlar bilgilendirme amaçlıdır, kesin ücretlendirme muayene sonrası belirlenir.</p>
+                <p data-translate="pricing.note2">* Detaylı bilgi ve randevu için lütfen iletişime geçiniz.</p>
             </div>
         </div>
     </section>
@@ -193,20 +279,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonials">
-                    <h3>{{ t.about.evaluations }}</h3>
-                    <div class="testimonials-grid">
-                        {% for testimonial in t.about.testimonials %}
-                        <div class="testimonial-card">
-                            <div class="testimonial-rating">
-                                {% for i in range(testimonial.rating) %}
-                                <i class="fas fa-star"></i>
-                                {% endfor %}
-                            </div>
-                            <p class="testimonial-text">"{{ testimonial.comment }}"</p>
-                            <p class="testimonial-author">- {{ testimonial.name }}</p>
-                        </div>
-                        {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 class="section-title" data-translate="faq.title">Sık Sorulan Sorular (SSS)</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" data-translate="faq.q1">İlk muayeneye gelirken neler getirmeliyim?</div>
+                    <div class="faq-answer" data-translate="faq.a1">Kimlik belgenizi, varsa önceki tahlil ve raporlarınızı, düzenli kullandığınız ilaçların listesini getirmeniz faydalı olacaktır.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" data-translate="faq.q2">Sigorta geçerli mi?</div>
+                    <div class="faq-answer" data-translate="faq.a2">Klinikte SGK ve özel sağlık sigortaları geçerli değildir. Ödeme işlemleri nakit veya kredi kartı ile yapılabilmektedir.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" data-translate="faq.q3">Tedavi süreci ne kadar sürer?</div>
+                    <div class="faq-answer" data-translate="faq.a3">Tedavi süresi, uygulanacak yönteme ve hastanın ihtiyacına göre değişiklik gösterir. Genellikle ilk seanstan itibaren 2-6 hafta arasında gözle görülür sonuçlar alınır.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" data-translate="faq.q4">Basit sağlık tavsiyeleri</div>
+                    <div class="faq-answer">
+                        <ul class="health-tips">
+                            <li data-translate="faq.tips.1">Cildinizi düzenli olarak nemlendirin.</li>
+                            <li data-translate="faq.tips.2">Her gün güneş koruyucu kullanın.</li>
+                            <li data-translate="faq.tips.3">Bol su için ve dengeli beslenin.</li>
+                            <li data-translate="faq.tips.4">Cilt tipinize uygun ürünler tercih edin.</li>
+                            <li data-translate="faq.tips.5">Şüpheli lezyonlarda mutlaka dermatoloğa başvurun.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -220,21 +322,21 @@
                 <div class="contact-info">
                     <div class="contact-card">
                         <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                        <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <h3>{{ t.contact.address }}</h3>
                         <p>İstanbul, Türkiye</p>
                     </div>
                     <div class="contact-card">
                         <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
+                        <i class="fas fa-phone"></i>
+                    </div>
                         <h3>{{ t.contact.phone }}</h3>
                         <p><a href="tel:+905551234567">+90 555 123 4567</a></p>
                     </div>
                     <div class="contact-card">
                         <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
+                        <i class="fas fa-envelope"></i>
                         </div>
                         <h3>{{ t.contact.email }}</h3>
                         <p><a href="mailto:info@draslan.com">info@draslan.com</a></p>
@@ -1283,7 +1385,7 @@
 
 .contact-social {
     display: flex;
-    gap: 1.5rem;
+        gap: 1.5rem;
     margin-top: 1rem;
 }
 
@@ -1334,6 +1436,75 @@
         gap: 0.5rem;
     }
 }
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+}
+
+.pricing-card {
+    background: #fff;
+    border-radius: 2.2rem 0.7rem 2.2rem 0.7rem;
+    box-shadow: 0 6px 32px 0 rgba(42,157,143,0.10), 0 1.5px 6px 0 rgba(42,157,143,0.08);
+    border: 3px solid var(--primary-light);
+    position: relative;
+    overflow: visible;
+    transition: box-shadow 0.3s, border 0.3s, transform 0.2s;
+}
+.pricing-card:hover {
+    box-shadow: 0 12px 40px 0 rgba(42,157,143,0.18), 0 2px 8px 0 rgba(42,157,143,0.10);
+    border: 3px solid var(--primary);
+    transform: translateY(-6px) scale(1.03);
+}
+
+.pricing-card.most-popular::before {
+    content: 'En Çok Tercih Edilen';
+    position: absolute;
+    top: -18px;
+    right: 18px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.4rem 1.2rem;
+    border-radius: 1.2rem 1.2rem 1.2rem 0.4rem;
+    box-shadow: 0 2px 8px rgba(42,157,143,0.10);
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+@media (max-width: 700px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .pricing-card {
+        border-radius: 1.5rem 0.7rem 1.5rem 0.7rem;
+    }
+}
+
+.most-popular-badge {
+    position: absolute;
+    top: -18px;
+    right: 18px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.4rem 1.2rem;
+    border-radius: 1.2rem 1.2rem 1.2rem 0.4rem;
+    box-shadow: 0 2px 8px rgba(42,157,143,0.10);
+    letter-spacing: 0.5px;
+    z-index: 2;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.pricing-card.most-popular {
+    position: relative;
+}
 </style>
 {% endblock %}
 
@@ -1346,6 +1517,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 home: "Ana Sayfa",
                 about: "Hakkımızda",
                 services: "Hizmetler",
+                pricing: "Ücretlendirme",
+                blog: "Blog",
                 contact: "İletişim",
                 appointment: "Randevu Al"
             },
@@ -1362,35 +1535,77 @@ document.addEventListener('DOMContentLoaded', function() {
                 vision_text: "Dermatoloji alanında dijital sağlık hizmetlerinin öncüsü olarak; modern, kullanıcı dostu ve güvenilir bir platformla hastaların ihtiyaç duyduğu her an yanında olan, örnek gösterilen bir doktor web sitesi olmak.",
                 evaluations: "Hasta Değerlendirmeleri"
             },
-            services: {
-                title: "Hizmetlerimiz",
-                learn_more: "Detaylı Bilgi",
-                treatments: {
-                    acne: {
-                        title: "Akne Tedavisi",
-                        desc: "Akne tedavisinde, hastanın cilt tipine ve akne şiddetine göre özelleştirilmiş bir yaklaşım izlenir. Topikal ilaçlar, antibiyotikler, kimyasal peelingler ve bazı durumlarda lazer uygulamaları tercih edilebilir."
-                    },
-                    pigmentation: {
-                        title: "Pigmentasyon Tedavisi",
-                        desc: "Pigment lekeleri genellikle güneş hasarı, hormonal değişiklikler veya cilt travmaları sonrası oluşur. Leke tedavisinde kimyasal peeling, lazer uygulamaları ve cilt tonu dengeleyici medikal ürünler kullanılır."
-                    },
-                    botox: {
-                        title: "Botoks ve Dolgu",
-                        desc: "Botoks, mimik kaslarını geçici olarak durdurarak kırışıklıkların görünümünü azaltır. Dolgu uygulamaları ise hacim kaybı yaşanan bölgelerde cildin dolgun ve genç görünmesini sağlar."
-                    },
-                    laser: {
-                        title: "Lazer Epilasyon",
-                        desc: "Lazer epilasyon, istenmeyen tüylerden kalıcı olarak kurtulmanın en etkili yollarından biridir. Cilt ve kıl tipine uygun lazer teknolojisiyle, kıl kökleri hedef alınarak yok edilir."
-                    },
-                    skincare: {
-                        title: "Medikal Cilt Bakımı",
-                        desc: "Medikal cilt bakımı; gözenek temizliği, nem dengesi sağlama, ölü derilerden arındırma ve kolajen üretimini destekleme amaçlı profesyonel bir uygulamadır."
-                    },
-                    prp: {
-                        title: "PRP Tedavisi",
-                        desc: "PRP (Platelet Rich Plasma), kişinin kendi kanından elde edilen platelet yönünden zengin plazmanın cilt altına enjekte edilmesiyle yapılır. Hücre yenilenmesini destekler, ince kırışıklıkları azaltır."
-                    }
+            faq: {
+                title: "Sık Sorulan Sorular (SSS)",
+                q1: "İlk muayeneye gelirken neler getirmeliyim?",
+                a1: "Kimlik belgenizi, varsa önceki tahlil ve raporlarınızı, düzenli kullandığınız ilaçların listesini getirmeniz faydalı olacaktır.",
+                q2: "Sigorta geçerli mi?",
+                a2: "Klinikte SGK ve özel sağlık sigortaları geçerli değildir. Ödeme işlemleri nakit veya kredi kartı ile yapılabilmektedir.",
+                q3: "Tedavi süreci ne kadar sürer?",
+                a3: "Tedavi süresi, uygulanacak yönteme ve hastanın ihtiyacına göre değişiklik gösterir. Genellikle ilk seanstan itibaren 2-6 hafta arasında gözle görülür sonuçlar alınır.",
+                q4: "Basit sağlık tavsiyeleri",
+                tips: {
+                    1: "Cildinizi düzenli olarak nemlendirin.",
+                    2: "Her gün güneş koruyucu kullanın.",
+                    3: "Bol su için ve dengeli beslenin.",
+                    4: "Cilt tipinize uygun ürünler tercih edin.",
+                    5: "Şüpheli lezyonlarda mutlaka dermatoloğa başvurun."
                 }
+            },
+            pricing: {
+                title: "Ücretlendirme",
+                subtitle: "Hizmetlerimiz ve fiyatlarımız hakkında detaylı bilgi",
+                treatments: {
+                    acne: "Akne Tedavisi",
+                    pigmentation: "Pigmentasyon Tedavisi",
+                    botox: "Botoks ve Dolgu",
+                    laser: "Lazer Epilasyon",
+                    skincare: "Medikal Cilt Bakımı",
+                    prp: "PRP Tedavisi"
+                },
+                note1: "* Fiyatlar bilgilendirme amaçlıdır, kesin ücretlendirme muayene sonrası belirlenir.",
+                note2: "* Detaylı bilgi ve randevu için lütfen iletişime geçiniz.",
+                acne: {
+                    analysis: "Cilt Analizi ve Muayene",
+                    topical: "Topikal İlaç Tedavisi",
+                    peeling1: "Kimyasal Peeling (Tek Seans)",
+                    peeling4: "Kimyasal Peeling (4 Seans Paket)",
+                    laser: "Lazer Tedavisi (Tek Seans)"
+                },
+                pigmentation: {
+                    analysis: "Leke Analizi ve Muayene",
+                    laser1: "Lazer Tedavisi (Tek Seans)",
+                    laser6: "Lazer Tedavisi (6 Seans Paket)",
+                    peeling: "Kimyasal Peeling (Tek Seans)",
+                    medical: "Medikal Ürün Tedavisi"
+                },
+                botox: {
+                    region: "Botoks (Bölge Başı)",
+                    full: "Botoks (Tüm Yüz)",
+                    filler1: "Dolgu (1cc)",
+                    filler2: "Dolgu (2cc)",
+                    control: "Kontrol Muayenesi"
+                },
+                laser: {
+                    analysis: "Cilt Analizi ve Muayene",
+                    small1: "Tek Seans (Küçük Bölge)",
+                    large1: "Tek Seans (Büyük Bölge)",
+                    small6: "6 Seans Paket (Küçük Bölge)",
+                    large6: "6 Seans Paket (Büyük Bölge)"
+                },
+                skincare: {
+                    analysis: "Detaylı Cilt Analizi",
+                    care1: "Medikal Cilt Bakımı (Tek Seans)",
+                    care4: "Medikal Cilt Bakımı (4 Seans Paket)",
+                    program: "Bakım Programı"
+                },
+                prp: {
+                    session1: "PRP (Tek Seans)",
+                    session3: "PRP (3 Seans Paket)",
+                    session6: "PRP (6 Seans Paket)",
+                    control: "Kontrol Muayenesi"
+                },
+                free: "Ücretsiz"
             },
             contact: {
                 title: "İletişim",
@@ -1404,6 +1619,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 home: "Home",
                 about: "About",
                 services: "Services",
+                pricing: "Pricing",
+                blog: "Blog",
                 contact: "Contact",
                 appointment: "Book Appointment"
             },
@@ -1420,35 +1637,77 @@ document.addEventListener('DOMContentLoaded', function() {
                 vision_text: "To be a leading example of a doctor's website in digital health services in dermatology; providing a modern, user-friendly, and reliable platform that is always there when patients need it.",
                 evaluations: "Patient Reviews"
             },
-            services: {
-                title: "Our Services",
-                learn_more: "Learn More",
-                treatments: {
-                    acne: {
-                        title: "Acne Treatment",
-                        desc: "In acne treatment, a customized approach is followed according to the patient's skin type and acne severity. Topical medications, antibiotics, chemical peels, and in some cases, laser applications are preferred."
-                    },
-                    pigmentation: {
-                        title: "Pigmentation Treatment",
-                        desc: "Pigmentation spots usually occur after sun damage, hormonal changes, or skin trauma. Chemical peeling, laser applications, and skin tone balancing medical products are used in spot treatment."
-                    },
-                    botox: {
-                        title: "Botox and Fillers",
-                        desc: "Botox temporarily stops mimetic muscles, reducing the appearance of wrinkles. Filler applications provide a plump and youthful appearance in areas experiencing volume loss."
-                    },
-                    laser: {
-                        title: "Laser Hair Removal",
-                        desc: "Laser hair removal is one of the most effective ways to permanently remove unwanted hair. Using laser technology suitable for skin and hair type, hair follicles are targeted and eliminated."
-                    },
-                    skincare: {
-                        title: "Medical Skin Care",
-                        desc: "Medical skin care is a professional application aimed at pore cleansing, moisture balance, dead skin removal, and supporting collagen production."
-                    },
-                    prp: {
-                        title: "PRP Treatment",
-                        desc: "PRP (Platelet Rich Plasma) is performed by injecting platelet-rich plasma obtained from the person's own blood under the skin. It supports cell renewal and reduces fine wrinkles."
-                    }
+            faq: {
+                title: "Frequently Asked Questions (FAQ)",
+                q1: "What should I bring to my first appointment?",
+                a1: "Please bring your ID, any previous test results or reports, and a list of medications you regularly use.",
+                q2: "Is insurance accepted?",
+                a2: "SGK and private health insurances are not accepted at the clinic. Payments can be made by cash or credit card.",
+                q3: "How long does the treatment process take?",
+                a3: "The duration of treatment varies depending on the method applied and the patient's needs. Noticeable results are usually seen within 2-6 weeks after the first session.",
+                q4: "Basic health tips",
+                tips: {
+                    1: "Moisturize your skin regularly.",
+                    2: "Use sunscreen every day.",
+                    3: "Drink plenty of water and eat a balanced diet.",
+                    4: "Choose products suitable for your skin type.",
+                    5: "Consult a dermatologist for suspicious lesions."
                 }
+            },
+            pricing: {
+                title: "Pricing",
+                subtitle: "Detailed information about our services and prices",
+                treatments: {
+                    acne: "Acne Treatment",
+                    pigmentation: "Pigmentation Treatment",
+                    botox: "Botox and Fillers",
+                    laser: "Laser Hair Removal",
+                    skincare: "Medical Skin Care",
+                    prp: "PRP Treatment"
+                },
+                note1: "* Prices are for informational purposes only, final pricing is determined after examination.",
+                note2: "* Please contact us for detailed information and appointments.",
+                acne: {
+                    analysis: "Skin Analysis and Examination",
+                    topical: "Topical Medication Treatment",
+                    peeling1: "Chemical Peeling (Single Session)",
+                    peeling4: "Chemical Peeling (4-Session Package)",
+                    laser: "Laser Treatment (Single Session)"
+                },
+                pigmentation: {
+                    analysis: "Spot Analysis and Examination",
+                    laser1: "Laser Treatment (Single Session)",
+                    laser6: "Laser Treatment (6-Session Package)",
+                    peeling: "Chemical Peeling (Single Session)",
+                    medical: "Medical Product Treatment"
+                },
+                botox: {
+                    region: "Botox (Per Area)",
+                    full: "Botox (Full Face)",
+                    filler1: "Filler (1cc)",
+                    filler2: "Filler (2cc)",
+                    control: "Follow-up Examination"
+                },
+                laser: {
+                    analysis: "Skin Analysis and Examination",
+                    small1: "Single Session (Small Area)",
+                    large1: "Single Session (Large Area)",
+                    small6: "6-Session Package (Small Area)",
+                    large6: "6-Session Package (Large Area)"
+                },
+                skincare: {
+                    analysis: "Detailed Skin Analysis",
+                    care1: "Medical Skin Care (Single Session)",
+                    care4: "Medical Skin Care (4-Session Package)",
+                    program: "Care Program"
+                },
+                prp: {
+                    session1: "PRP (Single Session)",
+                    session3: "PRP (3-Session Package)",
+                    session6: "PRP (6-Session Package)",
+                    control: "Follow-up Examination"
+                },
+                free: "Free"
             },
             contact: {
                 title: "Contact",
@@ -1458,6 +1717,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     };
+
+    function updateMostPopularBadge(lang) {
+        var badge = document.querySelector('.most-popular-badge');
+        if (badge) {
+            badge.textContent = lang === 'en' ? 'Most Popular' : 'En Çok Tercih Edilen';
+        }
+    }
 
     // Language switching function
     function changeLang(lang) {
@@ -1488,6 +1754,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Store the selected language
         localStorage.setItem('selectedLanguage', lang);
+        updateMostPopularBadge(lang);
     }
 
     // Initialize language from localStorage or default to Turkish
