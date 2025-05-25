@@ -566,34 +566,11 @@
         let response = '';
         let followUp = '';
 
-        // Çoklu dermatolojik tanı desteği
-        const diagnoses = [
-            { keywords: ['yara', 'kızarıklık'], info: 'Ciltteki yara ve kızarıklıklar çeşitli nedenlerden kaynaklanabilir. Stres, alerjik reaksiyonlar veya egzama gibi durumlar bunlara yol açabilir.' },
-            { keywords: ['sivilce', 'akne'], info: 'Akne, ciltteki yağ bezlerinin aşırı çalışması ve gözeneklerin tıkanması sonucu oluşur. Hormonal değişiklikler, stres ve bazı kozmetik ürünler bu durumu tetikleyebilir.' },
-            { keywords: ['kaşıntı'], info: 'Kaşıntı, ciltteki sinir uçlarının uyarılması sonucu oluşan bir belirtidir. Alerjik reaksiyonlar, egzama veya kuru cilt bu duruma neden olabilir.' },
-            { keywords: ['egzama', 'dermatit'], info: 'Egzama, cildin iltihaplanmasına bağlı olarak gelişen kronik bir durumdur. Kızarıklık, kaşıntı ve kuruluk gibi belirtilerle kendini gösterir.' },
-            { keywords: ['sedef', 'psoriasis'], info: 'Sedef hastalığı, bağışıklık sisteminin etkisiyle cilt hücrelerinin hızlı yenilenmesine neden olan kronik bir durumdur. Kırmızı, pullu lekeler oluşturur.' },
-            { keywords: ['ben', 'nevüs'], info: 'Benler, ciltteki pigment hücrelerinin bir araya gelmesiyle oluşan yapılardır. Çoğu zararsız olmakla birlikte, değişim gösteren benler için dermatolojik değerlendirme önemlidir.' },
-            { keywords: ['mantar', 'fungal'], info: 'Mantar enfeksiyonları, nemli ve sıcak ortamlarda gelişen yaygın bir durumdur. Kaşıntı, kızarıklık ve pullanma gibi belirtilerle kendini gösterir.' },
-            { keywords: ['kuruluk', 'kuru cilt'], info: 'Cilt kuruluğu, çevresel faktörler, yaşlanma veya bazı cilt rahatsızlıklarından kaynaklanabilir. Düzenli nemlendirici kullanımı ve uygun cilt bakımı önemlidir.' },
-            { keywords: ['güneş', 'yanık'], info: 'Güneş yanıkları, UV ışınlarının ciltte oluşturduğu hasarlardır. Güneş koruyucu kullanımı ve uygun korunma yöntemleri önemlidir.' },
-            { keywords: ['saç dökülmesi', 'alopesi'], info: 'Saç dökülmesi, genetik faktörler, hormonal değişiklikler veya bazı sağlık durumlarından kaynaklanabilir. Erken teşhis ve tedavi önemlidir.' },
-            { keywords: ['tırnak', 'tırnak mantarı'], info: 'Tırnak mantarı, tırnaklarda renk değişikliği, kalınlaşma ve kırılganlığa neden olan bir enfeksiyondur. Erken tedavi önemlidir.' },
-            { keywords: ['rosacea', 'gül hastalığı'], info: 'Rosacea, yüzde kızarıklık ve damar genişlemesine neden olan kronik bir durumdur. Tetikleyici faktörlerin belirlenmesi ve uygun tedavi önemlidir.' },
-            { keywords: ['vitiligo', 'ala'], info: 'Vitiligo, ciltte pigment kaybına bağlı olarak gelişen beyaz lekelerle karakterize bir durumdur. Erken teşhis ve tedavi önemlidir.' },
-            { keywords: ['ürtiker', 'kurdeşen'], info: 'Ürtiker, alerjik reaksiyonlar sonucu oluşan kırmızı, kaşıntılı kabarıklıklarla karakterize bir durumdur. Tetikleyici faktörlerin belirlenmesi önemlidir.' }
-        ];
-        let foundDiagnoses = [];
-        diagnoses.forEach(d => {
-            d.keywords.forEach(k => {
-                if (lowerMessage.includes(k) && !foundDiagnoses.includes(d.info)) {
-                    foundDiagnoses.push(d.info);
-                }
-            });
-        });
-        if (foundDiagnoses.length > 0) {
-            response = foundDiagnoses.join('\n\n');
-            followUp = 'Belirttiğiniz durumlar için detaylı değerlendirme ve tedavi için bir dermatoloğa başvurmanız önerilir.';
+        // Dil değiştirme istekleri
+        if (lowerMessage.includes('türkçe') || lowerMessage.includes('turkce') || 
+            lowerMessage.includes('türkçe konuş') || lowerMessage.includes('turkce konus')) {
+            response = 'Tabii ki, bundan sonra Türkçe konuşacağım. Size nasıl yardımcı olabilirim?';
+            followUp = 'Cilt sağlığınızla ilgili bir sorunuz var mı?';
             return setTimeout(() => {
                 addMessage(response, 'bot');
                 setTimeout(() => {
@@ -602,123 +579,63 @@
             }, 500);
         }
 
-        // Genel soru/istek ifadeleri için kontrol
-        if ((lowerMessage.includes('sorum') || lowerMessage.includes('yardım') || lowerMessage.includes('danışmak') || lowerMessage.includes('bir şey sormak') || lowerMessage.includes('bir sorum var') || lowerMessage.includes('yardım isterim')) &&
-            !(lowerMessage.includes('ben '))) {
-            response = 'Elbette, size yardımcı olmaktan memnuniyet duyarım. Lütfen cilt sağlığınızla ilgili sorununuzu veya şikayetinizi daha detaylı şekilde yazar mısınız?';
-            return setTimeout(() => {
-                addMessage(response, 'bot');
-            }, 500);
-        }
-
-        // Doktor hakkında bilgi
-        if (lowerMessage.includes('yağmur aslan') || lowerMessage.includes('doktorunuz kim') || lowerMessage.includes('doktor kimdir') || lowerMessage.includes('doktor hakkında bilgi') || lowerMessage.includes('uzmanlık alanı nedir') || lowerMessage.includes('hangi okulu bitirdi') || lowerMessage.includes('eğitim durumu') || lowerMessage.includes('deneyim') || lowerMessage.includes('özgeçmiş') || lowerMessage.includes('kaç yıldır çalışıyor') || lowerMessage.includes('kaç yıl')) {
-            response = 'Dr. Yağmur Aslan, İstanbul Üniversitesi İstanbul Tıp Fakültesi\'nden mezun olmuştur. Dermatoloji uzmanlık eğitimini yine İstanbul Üniversitesi\'nde tamamlamıştır. 2012 yılından bu yana dermatoloji alanında aktif olarak çalışmaktadır ve 12 yılı aşkın klinik deneyime sahiptir. Kariyeri boyunca çeşitli devlet ve özel hastanelerde görev almış, yurt içi ve yurt dışında birçok dermatoloji kongresine katılmıştır. Özellikle cilt hastalıkları, kozmetik dermatoloji, deri kanserleri, alerjik cilt hastalıkları ve çocuk dermatolojisi alanlarında uzmandır. Türk Dermatoloji Derneği ve Avrupa Dermatoloji Akademisi (EADV) üyesidir. Çeşitli bilimsel makaleleri ve kitap bölümleri yayımlanmıştır. Hastalarına güncel, bilimsel ve etik ilkelere uygun şekilde hizmet vermektedir. Yabancı dil olarak İngilizce bilmektedir.';
-            return setTimeout(() => {
-                addMessage(response, 'bot');
-            }, 500);
-        }
-
-        // Şikayet süresiyle ilgili akıllı yanıtlar
-        const sureRegex = /(\d+)\s*(gün|hafta|ay|yıl|senedir|gündür|haftadır|aydır|yıldır|senedir)/;
-        const yeniBasladiRegex = /(yeni başladı|yeni basladi|daha yeni|bugün|bu sabah|az önce)/;
-        let sureMatch = lowerMessage.match(sureRegex);
-        let yeniBasladiMatch = lowerMessage.match(yeniBasladiRegex);
-        if (sureMatch) {
-            let sure = sureMatch[1];
-            let birim = sureMatch[2];
-            if (birim.startsWith('gün')) {
-                response = `${sure} gündür devam eden şikayetlerde, eğer belirtiler hafifse genellikle kısa süreli tahriş veya geçici bir durum olabilir. Ancak şikayetleriniz artarsa veya geçmezse dermatoloğa başvurmanız önerilir.`;
-            } else if (birim.startsWith('hafta')) {
-                response = `${sure} haftadır devam eden cilt şikayetlerinde, altta yatan bir enfeksiyon, alerji veya kronik bir durum olabilir. Uzun süren şikayetler için dermatolojik değerlendirme önemlidir.`;
-            } else if (birim.startsWith('ay')) {
-                response = `${sure} aydır devam eden cilt sorunları kronikleşmiş olabilir. Mutlaka bir dermatoloğa başvurmanızı öneririm.`;
-            } else if (birim.startsWith('yıl') || birim.startsWith('sene')) {
-                response = `${sure} yıldır devam eden cilt şikayetleri için detaylı bir dermatolojik muayene gereklidir. Lütfen randevu alarak uzman görüşü alın.`;
-            }
-            return setTimeout(() => {
-                addMessage(response, 'bot');
-            }, 500);
-        } else if (yeniBasladiMatch) {
-            response = 'Şikayetiniz yeni başladıysa, ciltteki değişiklikleri gözlemlemeye devam edin. Eğer şikayetleriniz ilerlerse veya ek bulgular ortaya çıkarsa dermatoloğa başvurmanız faydalı olacaktır.';
-            return setTimeout(() => {
-                addMessage(response, 'bot');
-            }, 500);
-        }
-
-        // Genel dermatolojik sorunlar kontrolü
-        if (lowerMessage.includes('dermatolojik') || lowerMessage.includes('cilt sorunları') || 
-            lowerMessage.includes('cilt hastalıkları') || lowerMessage.includes('cilt problemleri')) {
-            response = 'Dermatolojik sorunlar genellikle şu kategorilerde değerlendirilir:\n\n' +
-                      '1. İltihabi Durumlar:\n' +
-                      '   - Akne (Sivilce)\n' +
-                      '   - Egzama (Dermatit)\n' +
-                      '   - Sedef Hastalığı\n' +
-                      '   - Rosacea (Gül Hastalığı)\n\n' +
-                      '2. Enfeksiyonlar:\n' +
-                      '   - Mantar Enfeksiyonları\n' +
-                      '   - Bakteriyel Enfeksiyonlar\n' +
-                      '   - Viral Enfeksiyonlar\n\n' +
-                      '3. Alerjik Reaksiyonlar:\n' +
-                      '   - Ürtiker (Kurdeşen)\n' +
-                      '   - Kontakt Dermatit\n' +
-                      '   - Atopik Dermatit\n\n' +
-                      '4. Pigmentasyon Bozuklukları:\n' +
-                      '   - Vitiligo\n' +
-                      '   - Melazma\n' +
-                      '   - Benler\n\n' +
-                      '5. Saç ve Tırnak Sorunları:\n' +
-                      '   - Saç Dökülmesi\n' +
-                      '   - Tırnak Mantarı\n' +
-                      '   - Tırnak Deformiteleri\n\n' +
-                      '6. Yaşlanma ve Çevresel Etkiler:\n' +
-                      '   - Güneş Hasarı\n' +
-                      '   - Cilt Kuruluğu\n' +
-                      '   - Kırışıklıklar\n\n' +
-                      'Her durumun kendine özgü belirtileri ve tedavi yöntemleri vardır. Doğru teşhis ve tedavi için dermatoloğunuza başvurmanız önemlidir.';
-            
-            followUp = 'Hangi kategori hakkında daha detaylı bilgi almak istersiniz?';
-            return setTimeout(() => {
-                addMessage(response, 'bot');
-                setTimeout(() => {
-                    addMessage(followUp, 'bot');
-                }, 1000);
-            }, 500);
-        }
-
-        // Selamlaşma kontrolü
+        // Genel selamlaşma ve sohbet
         if (lowerMessage.includes('merhaba') || lowerMessage.includes('selam') || lowerMessage.includes('nasılsın')) {
-            response = 'Merhaba, ben dermatoloji asistanınızım. Cilt sağlığınızla ilgili sorularınızı yanıtlamak için buradayım.';
+            const greetings = [
+                'Merhaba! Ben dermatoloji asistanınızım. Size nasıl yardımcı olabilirim?',
+                'Merhaba! Cilt sağlığınızla ilgili sorularınızı yanıtlamak için buradayım.',
+                'Selam! Dermatolojik konularda size yardımcı olmaktan mutluluk duyarım.',
+                'Hoş geldiniz! Ben Dr. Yağmur Aslan\'ın dijital asistanıyım. Size nasıl yardımcı olabilirim?'
+            ];
+            response = greetings[Math.floor(Math.random() * greetings.length)];
+            followUp = 'Cilt sağlığınızla ilgili bir sorunuz var mı?';
             return setTimeout(() => {
                 addMessage(response, 'bot');
+                setTimeout(() => {
+                    addMessage(followUp, 'bot');
+                }, 1000);
             }, 500);
         }
 
-        // Teşekkür kontrolü
+        // Teşekkür yanıtları
         if (lowerMessage.includes('teşekkür') || lowerMessage.includes('sağol') || lowerMessage.includes('eyvallah')) {
-            response = 'Rica ederim. Başka bir sorunuz olursa yardımcı olmaktan memnuniyet duyarım.';
+            const thanks = [
+                'Rica ederim! Başka bir sorunuz olursa yardımcı olmaktan memnuniyet duyarım.',
+                'Ne demek, her zaman yardımcı olmaya hazırım!',
+                'Rica ederim. Cilt sağlığınız için buradayım.',
+                'Rica ederim, başka bir konuda yardıma ihtiyacınız olursa lütfen sormaktan çekinmeyin.'
+            ];
+            response = thanks[Math.floor(Math.random() * thanks.length)];
             return setTimeout(() => {
                 addMessage(response, 'bot');
             }, 500);
         }
 
-        // Veda kontrolü
+        // Veda yanıtları
         if (lowerMessage.includes('hoşça kal') || lowerMessage.includes('görüşürüz') || lowerMessage.includes('bye')) {
-            response = 'İyi günler dilerim. Sağlıklı günler!';
+            const farewells = [
+                'İyi günler! Sağlıklı günler dilerim.',
+                'Görüşmek üzere! Cilt sağlığınıza dikkat edin.',
+                'Hoşça kalın! İhtiyacınız olursa yine buradayım.',
+                'İyi günler! Başka bir sorunuz olursa beklerim.'
+            ];
+            response = farewells[Math.floor(Math.random() * farewells.length)];
             return setTimeout(() => {
                 addMessage(response, 'bot');
             }, 500);
         }
 
-        // İlk yanıtı gönder
-        setTimeout(() => {
-            addMessage(response, 'bot');
-            
-            // Takip sorusunu gönder
-            setTimeout(() => {
-                addMessage(followUp, 'bot');
-            }, 1000);
-        }, 500);
+        // Tanınmayan sorgular için varsayılan yanıt
+        if (!response) {
+            response = 'Üzgünüm, bu konuda net bir bilgi veremiyorum. Cilt sağlığınızla ilgili spesifik bir sorunuz varsa, lütfen belirtin. Size daha iyi yardımcı olabilirim.';
+            followUp = 'Başka bir sorunuz var mı?';
+            return setTimeout(() => {
+                addMessage(response, 'bot');
+                setTimeout(() => {
+                    addMessage(followUp, 'bot');
+                }, 1000);
+            }, 500);
+        }
     }
     </script>
 

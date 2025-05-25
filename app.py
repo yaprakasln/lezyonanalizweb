@@ -8,6 +8,7 @@ import base64
 from werkzeug.utils import secure_filename
 import re
 import json
+from textblob import TextBlob
 
 # Load environment variables
 load_dotenv()
@@ -169,6 +170,74 @@ def randevu():
             return redirect(url_for('randevu'))
     
     return render_template('randevu.html', lang=session.get('lang', 'tr'), t=translations)
+
+@app.route('/degerlendirmeler')
+def degerlendirmeler():
+    translations = get_translations(session.get('lang', 'tr'))
+    try:
+        # Firebase'den değerlendirmeleri çek
+        degerlendirmeler_ref = rtdb.child('degerlendirmeler').get()
+        degerlendirmeler = []
+        
+        if degerlendirmeler_ref.each():
+            for degerlendirme in degerlendirmeler_ref.each():
+                degerlendirme_data = degerlendirme.val()
+                # Sadece onaylanmış değerlendirmeleri göster
+                if degerlendirme_data.get('onaylandi', False):
+                    degerlendirmeler.append(degerlendirme_data)
+        
+        # Tarihe göre sırala (en yeniden en eskiye)
+        degerlendirmeler.sort(key=lambda x: x.get('timestamp', 0), reverse=True)
+        
+        return render_template('degerlendirmeler.html', 
+                             degerlendirmeler=degerlendirmeler,
+                             lang=session.get('lang', 'tr'),
+                             t=translations)
+    except Exception as e:
+        print(f"Değerlendirmeler yüklenirken hata: {str(e)}")
+        flash(translations.get('error_loading_reviews', 'Değerlendirmeler yüklenirken bir hata oluştu.'), 'error')
+        return redirect(url_for('home'))
+
+@app.route('/degerlendirme-ekle', methods=['POST'])
+def degerlendirme_ekle():
+    translations = get_translations(session.get('lang', 'tr'))
+    try:
+        name = request.form['name']
+        rating = int(request.form['rating'])
+        comment = request.form['comment']
+        
+        # Yorum analizi yap
+        blob = TextBlob(comment)
+        sentiment_score = blob.sentiment.polarity
+        
+        # Eğer yorum çok negatifse (-0.5'ten düşük) onaylama
+        onaylandi = sentiment_score >= -0.5
+        
+        degerlendirme_data = {
+            'id': str(uuid.uuid4()),
+            'name': name,
+            'rating': rating,
+            'comment': comment,
+            'timestamp': -datetime.now().timestamp(),
+            'date': datetime.now().strftime('%d.%m.%Y'),
+            'onaylandi': onaylandi,
+            'sentiment_score': sentiment_score
+        }
+        
+        # Firebase'e kaydet
+        rtdb.child('degerlendirmeler').child(degerlendirme_data['id']).set(degerlendirme_data)
+        
+        if onaylandi:
+            flash(translations.get('review_success', 'Değerlendirmeniz başarıyla kaydedildi.'), 'success')
+        else:
+            flash(translations.get('review_pending', 'Değerlendirmeniz incelendikten sonra yayınlanacaktır.'), 'info')
+            
+        return redirect(url_for('degerlendirmeler'))
+        
+    except Exception as e:
+        print(f"Değerlendirme eklenirken hata: {str(e)}")
+        flash(translations.get('error_adding_review', 'Değerlendirme eklenirken bir hata oluştu.'), 'error')
+        return redirect(url_for('degerlendirmeler'))
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001) 

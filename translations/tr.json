@@ -119,5 +119,16 @@
             "skincare": "Cilt Bakımı",
             "prp": "PRP Tedavisi"
         }
-    }
+    },
+    "degerlendirmeler_title": "Hasta Değerlendirmeleri",
+    "degerlendirme_yaz": "Değerlendirme Yaz",
+    "isim": "İsim",
+    "puan": "Puan",
+    "yildiz": "Yıldız",
+    "yorum": "Yorumunuz",
+    "gonder": "Gönder",
+    "review_success": "Değerlendirmeniz başarıyla kaydedildi.",
+    "review_pending": "Değerlendirmeniz incelendikten sonra yayınlanacaktır.",
+    "error_loading_reviews": "Değerlendirmeler yüklenirken bir hata oluştu.",
+    "error_adding_review": "Değerlendirme eklenirken bir hata oluştu."
 } 
